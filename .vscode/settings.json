@@ -1,0 +1,7 @@
+{
+  "ansible.ansibleLint.enabled": true,
+  "files.associations": {
+    "**/playbooks/*.yml": "ansible",
+    "**/roles/**/*.yml": "ansible",
+  }
+}

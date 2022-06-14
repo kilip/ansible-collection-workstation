@@ -1,0 +1,3 @@
+---
+- debug: var=ansible_os_family
+  failed_when: true

@@ -1,0 +1,30 @@
+---
+namespace: kilip
+name: workstation
+version: 1.0.0
+readme: README.md
+authors:
+  - Anthonius Munthi <me@itstoni.com>
+description: Collection of workstation automation tools for Ansible
+license:
+  - MIT
+tags:
+  - homebrew
+  - linuxbrew
+  - brew
+  - workstation
+  - dev
+  - mas
+  - configure
+  - development
+
+dependencies:
+  ansible.posix: "*"
+  community.general: ">=3.0.0"
+
+repository: https://github.com/kilip/workstation
+documentation: https://github.com/kilip/workstation/wiki
+homepage: https://github.com/kilip/workstation
+issues: https://github.com/kilip/workstation/issues
+
+build_ignore: []

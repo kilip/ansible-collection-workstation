@@ -1,0 +1,6 @@
+---
+- name: Build Workstation
+  become: true
+  gather_facts: true
+  roles:
+    - build

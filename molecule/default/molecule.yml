@@ -16,6 +16,6 @@ platforms:
 provisioner:
   name: ansible
   playbooks:
-    converge: "${PLAYBOOK:-default.yml}"
+    converge: "${PLAYBOOK:-converge.yml}"
 verifier:
   name: ansible

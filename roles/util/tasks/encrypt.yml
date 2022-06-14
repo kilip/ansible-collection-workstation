@@ -18,6 +18,7 @@
         path: "files/.encrypted/{{ item }}"
         content_binary: "{{ lookup('file', item, rstrip=false) | b64encode }}"
         config_path: "{{ playbook_dir }}/.sops.yaml"
+        mode: "0644"
       loop: "{{ ws_encrypted_files }}"
 
     - name: encrypt ~> Ensure encrypt source file is ignored

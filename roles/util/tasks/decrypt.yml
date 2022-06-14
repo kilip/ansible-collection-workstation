@@ -15,8 +15,7 @@
       ansible.builtin.copy:
         content: "{{ lookup('community.sops.sops', 'files/.encrypted/{{ item }}', rstrip=false) }}"
         dest: "files/{{ item }}"
-        owner: "{{ ws_user }}"
-        group: "{{ ws_user_group }}"
+        mode: "0644"
       loop: "{{ ws_encrypted_files }}"
       delegate_to: localhost
       become: false

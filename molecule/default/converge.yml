@@ -10,9 +10,9 @@
   vars:
     ws_user: toni
     ws_user_ssh_keys:
-      - secrets/id_rsa
+      - id_rsa
     ws_user_gpg_keys:
-      - id: 3C9B6EBE88D163FA
-        file: secrets/gpg.key
+      - file: gpg-3C9B6EBE88D163FA.key
+      - file: gpg-40A29F572C8134B1.key
     ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
     ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"

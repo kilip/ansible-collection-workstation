@@ -1,8 +1,6 @@
 ---
-- name: Ensure proxy cert files is encrypted
-  ansible.builtin.set_fact:
-    ws_encrypted_files: "{{ ws_encrypted_files + [ws_proxy_cert] }}"
-  when: ws_proxy_cert | length > 0
+- name: Ensure proxy server
+  ansible.builtin.include_tasks: verify/ensure-proxy.yml
 
 - name: Include "{{ ansible_os_family }}" config
   ansible.builtin.include_vars: config-{{ ansible_os_family }}.yml
@@ -11,3 +9,9 @@
   ansible.builtin.set_fact:
     ws_proxy_build: "{{ ws_proxy | length > 0 }}"
     ws_proxy_cert_build: "{{ ws_proxy_cert | length > 0 }}"
+
+- name: Ensure common package installed
+  kilip.workstation.add_package:
+    package:
+      - git
+      - curl

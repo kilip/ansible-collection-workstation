@@ -1,10 +1,4 @@
 ---
-- name: Ensure secret files are encrypted
-  ansible.builtin.include_role:
-    name: kilip.workstation.util
-    tasks_from: decrypt.yml
-    public: true
-
 - name: Ensure proxy configured
   ansible.builtin.include_tasks: proxy/setup.yml
   when: ws_proxy_build

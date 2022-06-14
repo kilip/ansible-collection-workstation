@@ -1,4 +1,11 @@
 ---
+- name: Normalize workstation config
+  kilip.workstation.facts:
+
+- name: Set ws_user_gpg_keys value
+  ansible.builtin.set_fact:
+    ws_user_gpg_keys: "{{ _ws_user_gpg_keys }}"
+
 - name: Gather facts
   ansible.builtin.include_role:
     name: "{{ role_item }}"

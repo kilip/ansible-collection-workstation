@@ -1,7 +1,7 @@
 ---
 - name: "proxy ~> Copy {{ ws_proxy_cert }}"
   ansible.builtin.copy:
-    src: "{{ ws_proxy_cert }}"
+    content: "{{ lookup('community.sops.sops', ws_encrypted_dir + '/' + ws_proxy_cert, rstrip=false) }}"
     dest: "{{ ws_cert_path }}/{{ ws_proxy_cert|basename }}"
     mode: "0644"
   when: ansible_os_family == 'Debian'

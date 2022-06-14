@@ -1,7 +1,7 @@
 ---
 fail_fast: false
 exclude: |
-  molecule/.*
+  molecule/default/files/.*
 repos:
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.26.3

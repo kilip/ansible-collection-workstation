@@ -1,21 +1,29 @@
 ---
-- name: Ensure executed user tasks configured
+- name: facts ~> Ensure executed user tasks configured
   ansible.builtin.set_fact:
     ws_gpg_import: "{{ ws_user_gpg_keys | length > 0 }}"
     ws_ssh_import: "{{ ws_user_ssh_keys | length > 0 }}"
 
-- name: Ensure ssh keys added to encrypted files
-  ansible.builtin.set_fact:
-    ws_encrypted_files: "{{ ws_encrypted_files + [item] + [item+'.pub'] }}"
-  loop: "{{ ws_user_ssh_keys }}"
-  loop_control:
-    label: "{{ item }}"
-  when: ws_ssh_import
-
-- name: Ensure gpg keys encrypted
-  ansible.builtin.set_fact:
-    ws_encrypted_files: "{{ ws_encrypted_files + [item.file] }}"
+- name: facts ~> Ensure gpg keys configuration valid
+  ansible.builtin.assert:
+    that:
+      - "'id' in item"
+      - "'file' in item"
+    fail_msg: User gpg Keys item should contains id and file format.
+    quiet: true
   loop: "{{ ws_user_gpg_keys }}"
-  loop_control:
-    label: "{{ item.file }}"
-  when: ws_gpg_import
+  no_log: true
+
+- name: facts ~> Ensure ssh public key exists
+  ansible.builtin.assert:
+    that:
+      - "{{ lookup('file', ws_encrypted_dir + '/' + item + '.pub' ) | length > 0 }}"
+    fail_msg: User ssh public key file "{{ item }}.pub" should exists
+    quiet: true
+  loop: "{{ ws_user_ssh_keys }}"
+
+- name: facts ~> Ensure ws_user is configured
+  ansible.builtin.assert:
+    that: ws_user | length > 0
+    quiet: true
+    fail_msg: ws_user variable should be configured

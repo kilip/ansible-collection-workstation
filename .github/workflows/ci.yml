@@ -24,7 +24,7 @@ jobs:
 
   molecule:
     runs-on: ubuntu-latest
-    name: "Molecule (${{ matrix.scenario }}:${{ matrix.dist }})"
+    name: "Molecule ${{ matrix.scenario }}@${{ matrix.dist }}"
     strategy:
       fail-fast: false
       matrix:
@@ -32,6 +32,7 @@ jobs:
           - default
         dist:
           - ubuntu-20.04
+          - debian-11
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -50,11 +51,6 @@ jobs:
         run: |
           mkdir -p /home/runner/.ansible
           ln -s /home/runner/work/workstation/workstation /home/runner/.ansible/collections
-
-      - name: Install role and collection dependencies
-        run: |
-          ansible-galaxy install -r requirements.yml
-          ansible-galaxy collection install -r requirements.yml
 
       - name: Sops Binary Installer
         uses: mdgreenwald/mozilla-sops-action@v1.2.0

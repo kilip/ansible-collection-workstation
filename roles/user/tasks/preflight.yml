@@ -5,8 +5,17 @@
       - "'id' in item"
       - "'file' in item"
     fail_msg: User gpg Keys item should contains id and file format.
+    quiet: true
   loop: "{{ ws_user_gpg_keys }}"
   no_log: true
+
+- name: preflight ~> Ensure ssh public key exists
+  ansible.builtin.assert:
+    that:
+      - "{{ lookup('file', item + '.pub' ) | length > 0 }}"
+    fail_msg: User ssh public key file "{{ item }}.pub" should exists
+    quiet: true
+  loop: "{{ ws_user_ssh_keys }}"
 
 - name: preflight ~> Ensure ws_user is configured
   ansible.builtin.assert:
@@ -27,8 +36,6 @@
     state: present
     shell: /usr/bin/bash
 
-- debug: var=ws_packages
-
-- name: preflight ~> Ensure gpg packages is installed
+- name: preflight ~> Ensure gpg deps packages is installed
   kilip.workstation.add_package:
     package: gnupg

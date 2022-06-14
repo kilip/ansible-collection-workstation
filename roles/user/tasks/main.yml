@@ -1,3 +1,8 @@
 ---
 - name: Include gpg tasks
   ansible.builtin.include_tasks: gpg/setup.yml
+  when: ws_gpg_import
+
+- name: Include ssh tasks
+  ansible.builtin.include_tasks: ssh/setup.yml
+  when: ws_ssh_import

@@ -1,5 +1,4 @@
 ---
-- debug: var=ws_encrypted_files
 - name: decrypt ~> Decrypt secret files
   block:
     - name: decrypt ~> Ensure decrypted file dir exists

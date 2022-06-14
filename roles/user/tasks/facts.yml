@@ -1,11 +1,16 @@
 ---
+- name: Ensure executed user tasks configured
+  ansible.builtin.set_fact:
+    ws_gpg_import: "{{ ws_user_gpg_keys | length > 0 }}"
+    ws_ssh_import: "{{ ws_user_ssh_keys | length > 0 }}"
+
 - name: Ensure ssh keys added to encrypted files
   ansible.builtin.set_fact:
     ws_encrypted_files: "{{ ws_encrypted_files + [item] + [item+'.pub'] }}"
-  when: ws_user_ssh_keys | length > 0
   loop: "{{ ws_user_ssh_keys }}"
   loop_control:
     label: "{{ item }}"
+  when: ws_ssh_import
 
 - name: Ensure gpg keys encrypted
   ansible.builtin.set_fact:
@@ -13,3 +18,4 @@
   loop: "{{ ws_user_gpg_keys }}"
   loop_control:
     label: "{{ item.file }}"
+  when: ws_gpg_import

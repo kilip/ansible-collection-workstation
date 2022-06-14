@@ -18,6 +18,8 @@
         owner: "{{ ws_user }}"
         group: "{{ ws_user_group }}"
       loop: "{{ ws_encrypted_files }}"
+      delegate_to: localhost
+      become: false
 
     - name: encrypt ~> Ensure secrets file ignored
       ansible.builtin.include_tasks: sops-ignore.yml

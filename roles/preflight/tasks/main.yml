@@ -16,3 +16,16 @@
   ansible.builtin.package:
     name: "{{ ws_packages }}"
     state: present
+
+# fix linuxbrew install when using proxy with ssl bump
+- name: Ensure git http.sslVerify disabled when proxy use ssl bump
+  community.general.git_config:
+    scope: system
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  loop:
+    - name: http.postBuffer
+      value: 1048576000
+    - name: http.sslVerify
+      value: false
+  when: ws_proxy_cert_build

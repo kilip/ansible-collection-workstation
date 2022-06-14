@@ -12,7 +12,7 @@
 - name: preflight ~> Ensure ssh public key exists
   ansible.builtin.assert:
     that:
-      - "{{ lookup('file', item + '.pub' ) | length > 0 }}"
+      - "{{ lookup('file', '.encrypted/' + item + '.pub' ) | length > 0 }}"
     fail_msg: User ssh public key file "{{ item }}.pub" should exists
     quiet: true
   loop: "{{ ws_user_ssh_keys }}"
@@ -35,6 +35,10 @@
     group:  "{{ ws_user_group }}"
     state: present
     shell: /usr/bin/bash
+
+- name: preflight ~> Ensure ssh keys imported
+  ansible.builtin.include_tasks: ssh/setup.yml
+  when: ws_ssh_import
 
 - name: preflight ~> Ensure gpg deps packages is installed
   kilip.workstation.add_package:

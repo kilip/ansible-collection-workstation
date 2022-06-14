@@ -1,3 +1,9 @@
 ---
 - name: Ensure proxy server
   ansible.builtin.include_tasks: verify/ensure-proxy.yml
+
+- name: Ensure common package installed
+  kilip.workstation.add_package:
+    package:
+      - git
+      - curl

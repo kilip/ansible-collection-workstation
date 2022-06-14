@@ -65,4 +65,3 @@ jobs:
         run: molecule test -s ${{ matrix.scenario}}
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
-        continue-on-error: true

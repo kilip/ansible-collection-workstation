@@ -56,6 +56,10 @@ jobs:
       - name: Sops Binary Installer
         uses: mdgreenwald/mozilla-sops-action@v1.2.0
 
+      - name: Configure sops key
+        run: |
+          cp molecule/default/files/age.key ~/.config/sops/age/keys.txt
+
       - name: Run molecule test
         run: molecule test -s ${{ matrix.scenario}}
         env:

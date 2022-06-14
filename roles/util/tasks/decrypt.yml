@@ -1,0 +1,20 @@
+---
+- name: decrypt ~> Ensure decrypted file dir exists
+  ansible.builtin.file:
+    path: "files/{{ item|dirname }}"
+    state: directory
+    mode: "0755"
+
+- name: decrypt ~> Ensure decrypted file exists
+  ansible.builtin.copy:
+    content: "{{ lookup('community.sops.sops', 'files/.encrypted/{{ item }}', rstrip=false) }}"
+    dest: "files/{{ item }}"
+  loop: "{{ ws_encrypted_files }}"
+
+- name: decrypt ~> Ensure decrypted file is git ignored
+  ansible.builtin.lineinfile:
+    line: "{{ item | basename  }}"
+    path: "files/{{ item | dirname }}/.gitignore"
+    create: true
+    mode: "0644"
+  loop: "{{ ws_encrypted_files }}"

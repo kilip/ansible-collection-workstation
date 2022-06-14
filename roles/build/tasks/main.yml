@@ -1,4 +1,17 @@
 ---
-- name: build ~> Include preflight roles
+- name: Ensure workstation preflight validated
   ansible.builtin.include_role:
-    name: kilip.workstation.preflight
+    name: "{{ preflight_item }}"
+    public: true
+    tasks_from: preflight
+  loop_control:
+    loop_var: preflight_item
+  loop: "{{ ws_roles }}"
+
+- name: Ensure workstation role build
+  ansible.builtin.include_role:
+    name: "{{ build_item }}"
+    public: true
+  loop_control:
+    loop_var: build_item
+  loop: "{{ ws_roles }}"

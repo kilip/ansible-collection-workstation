@@ -1,0 +1,3 @@
+---
+- name: Ensure proxy server
+  ansible.builtin.include_tasks: verify/ensure-proxy.yml

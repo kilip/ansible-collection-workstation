@@ -1,0 +1,4 @@
+---
+ws_roles:
+  - kilip.workstation.preflight
+  - kilip.workstation.user

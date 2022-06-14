@@ -24,7 +24,7 @@ jobs:
 
   molecule:
     runs-on: ubuntu-latest
-    name: "Molecule ${{ matrix.scenario }}@${{ matrix.dist }}"
+    name: "Scenario ${{ matrix.scenario }}@${{ matrix.dist }}"
     strategy:
       fail-fast: false
       matrix:

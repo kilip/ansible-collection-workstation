@@ -58,6 +58,7 @@ jobs:
 
       - name: Configure sops key
         run: |
+          mkdir -p ~/.config/sops/age
           cp molecule/default/files/age.key ~/.config/sops/age/keys.txt
 
       - name: Run molecule test

@@ -4,3 +4,4 @@ ws_roles:
   - kilip.workstation.user
 
 ws_encrypted_files: []
+ws_encrypted_dir: ".encrypted"

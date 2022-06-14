@@ -17,5 +17,7 @@ provisioner:
   name: ansible
   playbooks:
     converge: "${PLAYBOOK:-converge.yml}"
+  env:
+    SOPS_AGE_KEY_FILE: "${MOLECULE_SCENARIO_DIRECTORY}/files/age.key"
 verifier:
   name: ansible

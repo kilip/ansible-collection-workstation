@@ -1,4 +1,7 @@
 ---
+- name: Ensure facts are gathered
+  ansible.builtin.include_tasks: gather-facts.yml
+
 - name: Ensure workstation preflight validated
   ansible.builtin.include_role:
     name: "{{ preflight_item }}"

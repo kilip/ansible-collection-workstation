@@ -1,1 +1,17 @@
 ---
+- name: Ensure secret files are encrypted
+  ansible.builtin.include_role:
+    name: kilip.workstation.util
+    tasks_from: decrypt.yml
+    public: true
+
+- name: Ensure proxy configured
+  ansible.builtin.include_tasks: proxy/setup.yml
+
+- name: Ensure node upgraded
+  ansible.builtin.include_tasks: "dist/setup-{{ ws_os_family }}.yml"
+
+- name: Ensure node packages installed
+  ansible.builtin.package:
+    name: "{{ ws_packages }}"
+    state: present

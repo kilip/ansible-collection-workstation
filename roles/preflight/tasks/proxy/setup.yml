@@ -1,0 +1,31 @@
+---
+- name: proxy ~> Prepare proxy cert installation
+  block:
+    - name: proxy ~> Set configure cert fact
+      ansible.builtin.set_fact:
+        ws_proxy_cert_configure: yes
+        ws_proxy_cert_path: "/etc/ssl/certs/{{ ws_proxy_cert | basename | replace('.crt', '.pem') }}"
+
+    - name: proxy ~> Set proxy cert env
+      ansible.builtin.set_fact:
+        ws_proxy_env_cert:
+          - export CURL_CA_BUNDLE="{{ ws_proxy_cert_path }}"
+          #- export GIT_SSL_CAINFO="{{ ws_proxy_cert_path }}"
+
+    - name: proxy ~> Add proxy env vars
+      ansible.builtin.set_fact:
+        ws_proxy_env: "{{ ws_proxy_env + ws_proxy_env_cert }}"
+
+    - name: proxy ~> Register certificates
+      ansible.builtin.include_tasks: proxy/cert.yml
+  when: ws_proxy_cert | length > 0
+
+- name: proxy ~> Configure for repo {{ ansible_os_family }}
+  ansible.builtin.include_tasks: "proxy/repo-{{ ansible_os_family }}.yml"
+
+- name: proxy ~> Configure environment
+  ansible.builtin.blockinfile:
+    path: /etc/environment
+    marker_begin: "workstation.proxy.start"
+    marker_end: "workstation.proxy.end"
+    block: "{{ lookup('template', 'proxy/etc-environment.j2') }}"

@@ -1,0 +1,8 @@
+---
+- name: sops ~> Ensure encrypted source file is ignored
+  ansible.builtin.lineinfile:
+    line: "{{ item | basename  }}"
+    path: "files/{{ item | dirname }}/.gitignore"
+    create: true
+    mode: "0644"
+  loop: "{{ ws_encrypted_files }}"

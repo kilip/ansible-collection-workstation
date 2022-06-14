@@ -9,7 +9,11 @@
         tasks_from: 'encrypt.yml'
         public: true
   vars:
-    ws_encrypted_files:
-      - secrets/squid-cert.crt
+    ws_user: toni
+    ws_user_ssh_keys:
       - secrets/id_rsa
-      - secrets/id_rsa.pub
+    ws_user_gpg_keys:
+      - id: 3C9B6EBE88D163FA
+        file: secrets/gpg.key
+    ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
+    ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"

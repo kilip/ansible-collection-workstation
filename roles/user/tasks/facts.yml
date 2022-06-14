@@ -1,0 +1,15 @@
+---
+- name: Ensure ssh keys added to encrypted files
+  ansible.builtin.set_fact:
+    ws_encrypted_files: "{{ ws_encrypted_files + [item] + [item+'.pub'] }}"
+  when: ws_user_ssh_keys | length > 0
+  loop: "{{ ws_user_ssh_keys }}"
+  loop_control:
+    label: "{{ item }}"
+
+- name: Ensure gpg keys encrypted
+  ansible.builtin.set_fact:
+    ws_encrypted_files: "{{ ws_encrypted_files + [item.file] }}"
+  loop: "{{ ws_user_gpg_keys }}"
+  loop_control:
+    label: "{{ item.file }}"

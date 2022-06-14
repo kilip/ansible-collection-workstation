@@ -6,4 +6,23 @@ ws_os_major: "{{ ansible_distribution_major_version }}"
 
 ws_proxy: ""
 ws_proxy_cert: ""
+ws_proxy_auth: false
 ws_proxy_build: false
+ws_packages:
+  - zsh
+ws_proxy_cert_path: ""
+ws_proxy_cert_configure: no
+ws_configure_proxy: false
+ws_configure_proxy_cert: false
+ws_proxy_env:
+  - export ALL_PROXY="http://{{ ws_proxy }}"
+  - export FTP_PROXY="http://{{ ws_proxy }}"
+  - export HTTP_PROXY="http://{{ ws_proxy }}"
+  - export HTTPS_PROXY="http://{{ ws_proxy }}"
+  - export WS_PROXY="http://{{ ws_proxy }}"
+  - export all_proxy="http://{{ ws_proxy }}"
+  - export ftp_proxy="http://{{ ws_proxy }}"
+  - export http_proxy="http://{{ ws_proxy }}"
+  - export https_proxy="http://{{ ws_proxy }}"
+
+ws_update_cert_command: "update-ca-certificates"

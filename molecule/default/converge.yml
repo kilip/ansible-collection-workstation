@@ -9,9 +9,10 @@
     - kilip.workstation.build
   vars:
     ws_user: toni
-    ws_proxy_cert: "{{ lookup('env','WS_PROXY_CERT') }}"
-    ws_proxy: "{{ lookup('env','WS_PROXY') }}"
-    ws_encrypted_files:
-      - squid-cert.crt
-      #- id_rsa
-      - id_rsa.pub
+    ws_user_ssh_keys:
+      - secrets/id_rsa
+    ws_user_gpg_keys:
+      - id: 3C9B6EBE88D163FA
+        file: secrets/gpg.key
+    ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
+    ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"

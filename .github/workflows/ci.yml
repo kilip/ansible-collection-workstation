@@ -31,7 +31,7 @@ jobs:
         scenario:
           - default
         dist:
-          - ubuntu-20.04
+          - ubuntu-22.04
           - debian-11
     steps:
       - name: Check out code

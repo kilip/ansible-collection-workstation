@@ -1,6 +1,34 @@
 ---
+- name: preflight ~> Ensure gpg keys configuration valid
+  ansible.builtin.assert:
+    that:
+      - "'id' in item"
+      - "'file' in item"
+    fail_msg: User gpg Keys item should contains id and file format.
+  loop: "{{ ws_user_gpg_keys }}"
+  no_log: true
+
 - name: preflight ~> Ensure ws_user is configured
   ansible.builtin.assert:
     that: ws_user | length > 0
     quiet: true
     fail_msg: ws_user variable should be configured
+
+- name: preflight ~> Ensure user group exists
+  ansible.builtin.group:
+    name: "{{ ws_user_group }}"
+    state: present
+
+- name: preflight ~> Ensure user exist
+  ansible.builtin.user:
+    name: "{{ ws_user }}"
+    home: "{{ ws_user_home }}"
+    group:  "{{ ws_user_group }}"
+    state: present
+    shell: /usr/bin/bash
+
+- debug: var=ws_packages
+
+- name: preflight ~> Ensure gpg packages is installed
+  kilip.workstation.add_package:
+    package: gnupg

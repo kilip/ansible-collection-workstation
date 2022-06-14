@@ -1,0 +1,8 @@
+---
+- name: Ensure proxy cert files is encrypted
+  ansible.builtin.set_fact:
+    ws_encrypted_files: "{{ ws_encrypted_files + [ws_proxy_cert] }}"
+  when: ws_proxy_cert | length > 0
+
+- name: Include "{{ ansible_os_family }}" config
+  ansible.builtin.include_vars: config-{{ ansible_os_family }}.yml

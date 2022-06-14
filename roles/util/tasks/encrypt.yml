@@ -1,22 +1,34 @@
 ---
-- name: encrypt ~> Ensure target dir exists
-  ansible.builtin.file:
-    path: "files/.encrypted/{{ item | dirname  }}"
-    state: directory
-    mode: "0755"
-  loop: "{{ ws_encrypted_files }}"
+- name: encrypt ~> Gather role facts
+  ansible.builtin.include_role:
+    name: kilip.workstation.build
+    tasks_from: gather-facts.yml
+    public: true
 
-- name: encrypt ~> Ensure file encrypted
-  community.sops.sops_encrypt:
-    path: "files/.encrypted/{{ item }}"
-    content_binary: "{{ lookup('file', item, rstrip=false) | b64encode }}"
-    config_path: "{{ playbook_dir }}/.sops.yaml"
-  loop: "{{ ws_encrypted_files }}"
+- block:
+    - name: encrypt ~> Ensure target dir exists
+      ansible.builtin.file:
+        path: "files/.encrypted/{{ item | dirname  }}"
+        state: directory
+        mode: "0755"
+      loop: "{{ ws_encrypted_files }}"
 
-- name: encrypt ~> Ensure encrypt source file is ignored
-  ansible.builtin.lineinfile:
-    line: "{{ item | basename  }}"
-    path: "files/{{ item | dirname }}/.gitignore"
-    create: true
-    mode: "0644"
-  loop: "{{ ws_encrypted_files }}"
+    - name: encrypt ~> Ensure file encrypted
+      community.sops.sops_encrypt:
+        path: "files/.encrypted/{{ item }}"
+        content_binary: "{{ lookup('file', item, rstrip=false) | b64encode }}"
+        config_path: "{{ playbook_dir }}/.sops.yaml"
+      loop: "{{ ws_encrypted_files }}"
+
+    - name: encrypt ~> Ensure encrypt source file is ignored
+      ansible.builtin.lineinfile:
+        line: "{{ item | basename  }}"
+        path: "files/{{ item | dirname }}/.gitignore"
+        create: true
+        mode: "0644"
+      loop: "{{ ws_encrypted_files }}"
+
+    - name: encrypt ~> Ensure secrets file ignored
+      ansible.builtin.include_tasks: sops-ignore.yml
+
+  when: ws_encrypted_files | length > 0

@@ -1,4 +1,8 @@
 ---
 
 ws_user: ""
+ws_user_group: "{{ ws_user }}"
 ws_user_home: "/home/{{ ws_user }}"
+
+ws_user_ssh_keys: []
+ws_user_gpg_keys: []

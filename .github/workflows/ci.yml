@@ -54,6 +54,7 @@ jobs:
           ln -s /home/runner/work/workstation/workstation /home/runner/.ansible/collections
 
       - name: Configure age key
+        run: |
           mkdir -p ~/.config/sops/age
           cp molecule/default/files/age.key ~/.config/sops/age/keys.txt
 

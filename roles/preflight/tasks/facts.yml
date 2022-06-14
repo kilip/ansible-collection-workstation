@@ -6,3 +6,8 @@
 
 - name: Include "{{ ansible_os_family }}" config
   ansible.builtin.include_vars: config-{{ ansible_os_family }}.yml
+
+- name: Ensure proxy build fact value
+  ansible.builtin.set_fact:
+    ws_proxy_build: "{{ ws_proxy | length > 0 }}"
+    ws_proxy_cert_build: "{{ ws_proxy_cert | length > 0 }}"

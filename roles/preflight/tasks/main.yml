@@ -7,6 +7,7 @@
 
 - name: Ensure proxy configured
   ansible.builtin.include_tasks: proxy/setup.yml
+  when: ws_proxy_build
 
 - name: Ensure node upgraded
   ansible.builtin.include_tasks: "dist/setup-{{ ws_os_family }}.yml"

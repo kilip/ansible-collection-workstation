@@ -18,7 +18,7 @@
 
     - name: proxy ~> Register certificates
       ansible.builtin.include_tasks: proxy/cert.yml
-  when: ws_proxy_cert | length > 0
+  when: ws_proxy_cert_build
 
 - name: proxy ~> Configure for repo {{ ansible_os_family }}
   ansible.builtin.include_tasks: "proxy/repo-{{ ansible_os_family }}.yml"

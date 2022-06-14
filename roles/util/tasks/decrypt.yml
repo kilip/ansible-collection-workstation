@@ -7,12 +7,16 @@
         path: "files/{{ item|dirname }}"
         state: directory
         mode: "0755"
+        owner: "{{ ws_user }}"
+        group: "{{ ws_user_group }}"
       loop: "{{ ws_encrypted_files }}"
 
     - name: decrypt ~> Ensure decrypted file exists
       ansible.builtin.copy:
         content: "{{ lookup('community.sops.sops', 'files/.encrypted/{{ item }}', rstrip=false) }}"
         dest: "files/{{ item }}"
+        owner: "{{ ws_user }}"
+        group: "{{ ws_user_group }}"
       loop: "{{ ws_encrypted_files }}"
 
     - name: encrypt ~> Ensure secrets file ignored

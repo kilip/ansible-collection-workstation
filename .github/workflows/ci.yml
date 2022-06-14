@@ -1,0 +1,65 @@
+name: CI
+
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  # Run CI once per day (at 05:15 UTC)
+  #schedule:
+  #  - cron: '15 5 * * *'
+
+defaults:
+  run:
+    working-directory: ansible_collections/kilip/workstation
+
+env:
+  PY_COLORS: 1
+  ANSIBLE_FORCE_COLOR: 1
+
+jobs:
+
+  molecule:
+    runs-on: ubuntu-latest
+    name: "Molecule (${{ matrix.scenario }}:${{ matrix.dist }})"
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - default
+        dist:
+          - ubuntu-20.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          path: ansible_collections/kilip/workstation
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install test requirements
+        run: pip install -r requirements.txt
+
+      - name: Create default collection path symlink
+        run: |
+          mkdir -p /home/runner/.ansible
+          ln -s /home/runner/work/workstation/workstation /home/runner/.ansible/collections
+
+      - name: Install role and collection dependencies
+        run: |
+          ansible-galaxy install -r requirements.yml
+          ansible-galaxy collection install -r requirements.yml
+
+      - name: Sops Binary Installer
+        uses: mdgreenwald/mozilla-sops-action@v1.2.0
+
+      - name: Run molecule test
+        run: molecule test -s ${{ matrix.scenario}}
+        env:
+          MOLECULE_DIST: ${{ matrix.dist }}

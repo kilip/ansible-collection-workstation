@@ -4,4 +4,4 @@ ws_roles:
   - kilip.workstation.user
 
 ws_encrypted_files: []
-ws_encrypted_dir: "{{ lookup('env', 'WS_ENCRYPTED_DIR') }}"
+ws_encrypted_dir: "encrypted"

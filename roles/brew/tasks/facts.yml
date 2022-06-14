@@ -1,0 +1,4 @@
+---
+- name: facts ~> Ensure package deps installed
+  kilip.workstation.add_package:
+    package: "brew"

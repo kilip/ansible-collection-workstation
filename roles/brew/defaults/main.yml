@@ -1,0 +1,5 @@
+---
+brew_home: "/home/linuxbrew"
+brew_prefix: "{{ brew_home }}/.linuxbrew"
+brew_bin: "{{ brew_prefix }}/bin/brew"
+brew_packages: []

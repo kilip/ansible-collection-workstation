@@ -1,4 +1,16 @@
 ---
+- name: facts ~> Ensure vars for os family loaded
+  ansible.builtin.include_vars: config-{{ ws_os_family }}.yml
+
 - name: facts ~> Ensure package deps installed
   kilip.workstation.add_package:
-    package: "brew"
+    package: "{{ ws_brew_packages }}"
+
+- name: facts ~> Check brew install stat
+  ansible.builtin.stat:
+    path: "{{ brew_bin }}"
+  register: _brew_bin
+
+- name: facts ~> Ensure install facts configured
+  ansible.builtin.set_fact:
+    brew_install: "{{ not _brew_bin.stat.exists }}"

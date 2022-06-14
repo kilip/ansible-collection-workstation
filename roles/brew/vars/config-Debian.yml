@@ -1,0 +1,8 @@
+---
+
+ws_brew_packages:
+  - build-essential
+  - procps
+  - curl
+  - file
+  - git

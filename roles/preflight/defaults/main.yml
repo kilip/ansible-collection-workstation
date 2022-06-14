@@ -24,5 +24,6 @@ ws_proxy_env:
   - export ftp_proxy="http://{{ ws_proxy }}"
   - export http_proxy="http://{{ ws_proxy }}"
   - export https_proxy="http://{{ ws_proxy }}"
+  - export HOMEBREW_CURLRC=1
 
 ws_update_cert_command: "update-ca-certificates"

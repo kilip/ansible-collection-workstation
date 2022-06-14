@@ -1,0 +1,13 @@
+---
+- name: Install brew package
+  community.general.homebrew:
+    package: "{{ item }}"
+    state: present
+    path: "{{ brew_prefix }}/bin"
+  register: stat
+  retries: 5
+  delay: 3
+  until: not stat.failed
+  loop: "{{ brew_packages }}"
+  become: true
+  become_user: "{{ ws_user }}"

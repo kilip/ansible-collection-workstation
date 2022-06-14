@@ -16,3 +16,8 @@
       - file: gpg-40A29F572C8134B1.key
     ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
     ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
+    brew_packages:
+      - direnv
+      - chezmoi
+      - pyenv
+      - phpbrew

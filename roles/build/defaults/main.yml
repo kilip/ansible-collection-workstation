@@ -1,6 +1,7 @@
 ---
 ws_roles:
   - kilip.workstation.preflight
+  - kilip.workstation.brew
   - kilip.workstation.user
 
 ws_encrypted_files: []

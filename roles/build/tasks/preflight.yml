@@ -1,7 +1,0 @@
----
-- name: Include all preflight check
-  ansible.builtin.include_role:
-    name: "{{ role_item }}"
-    tasks_from: preflight
-  loop:
-    - user

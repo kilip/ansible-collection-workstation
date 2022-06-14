@@ -1,0 +1,21 @@
+---
+version: 3
+
+vars:
+  SCENARIO: "{{.MOLECULE_SCENARIO}}"
+
+tasks:
+  run:
+    desc: Runs molecule test
+    cmds:
+      - molecule test -s {{.SCENARIO}}
+
+  converge:
+    desc: Runs molecule converge
+    cmds:
+      - molecule converge -s {{.SCENARIO}}
+
+  destroy:
+    desc: Runs molecule destroy
+    cmds:
+      - molecule destroy -s {{.SCENARIO}}

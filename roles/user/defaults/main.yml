@@ -1,0 +1,4 @@
+---
+
+ws_user: ""
+ws_user_home: "/home/{{ ws_user }}"

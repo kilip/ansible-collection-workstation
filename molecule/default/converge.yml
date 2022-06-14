@@ -6,3 +6,7 @@
   roles:
     - name: kilip.workstation.build
       public: true
+  vars:
+    ws_user: toni
+    ws_proxy_cert: "{{ lookup('env','WS_PROXY_CERT') }}"
+    ws_proxy: "{{ lookup('env','WS_PROXY') }}"

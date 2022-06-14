@@ -1,12 +1,10 @@
 ---
 version: '3'
 
-tasks:
-  default:
-    desc: Runs deps
-    cmds:
-      - task: deps
+includes:
+  test: .taskfiles/TestTasks.yml
 
+tasks:
   deps:
     cmds:
       - pre-commit install

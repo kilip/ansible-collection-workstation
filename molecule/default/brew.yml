@@ -19,4 +19,4 @@
       - chezmoi
       - pyenv
       - phpbrew
-    brew_enabled: no
+    brew_enabled: yes

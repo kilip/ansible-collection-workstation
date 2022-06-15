@@ -65,3 +65,41 @@ jobs:
         run: molecule test -s ${{ matrix.scenario}}
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
+
+  brew:
+    runs-on: ubuntu-latest
+    name: "Brew Install"
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          path: ansible_collections/kilip/workstation
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: pip
+
+      - name: Install test requirements
+        run: pip install -r requirements.txt
+
+      - name: Create default collection path symlink
+        run: |
+          mkdir -p /home/runner/.ansible
+          ln -s /home/runner/work/workstation/workstation /home/runner/.ansible/collections
+
+      - name: Configure age key
+        run: |
+          mkdir -p ~/.config/sops/age
+          cp molecule/default/files/age.key ~/.config/sops/age/keys.txt
+
+      - name: Sops Binary Installer
+        uses: mdgreenwald/mozilla-sops-action@v1.2.0
+
+      - name: Run molecule test
+        run: molecule test -s ${{ matrix.scenario}}
+        env:
+          PLAYBOOK: "brew.yml"

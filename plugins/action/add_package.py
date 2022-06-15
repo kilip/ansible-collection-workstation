@@ -1,33 +1,56 @@
 from __future__ import (absolute_import, division, print_function)
-from dis import dis
 from struct import pack
-from tokenize import String
 __metaclass__ = type
 
 from ansible.plugins.action import ActionBase
 from ansible.utils.display import Display
-
-display = Display()
+display = Display
 
 
 class ActionModule(ActionBase):
+
     def __init__(self, task, connection, play_context, loader, templar, shared_loader_obj):
         super(ActionModule, self).__init__(task, connection, play_context, loader, templar, shared_loader_obj)
+        self.packages = list()
+        self.brew_packages = list()
+
+    def _add_package(self, pkg_stat, args_pkg):
+        package = list()
+
+        # normalize arguments
+        if isinstance(args_pkg, str):
+            package.append(args_pkg)
+        elif isinstance(args_pkg, list):
+            package = args_pkg
+
+        for pkg in package:
+            if pkg not in pkg_stat:
+                pkg_stat.append(pkg)
+        pkg_stat.sort()
+        return pkg_stat
+
 
     def run(self, tmp=None, task_vars=None):
-        super(ActionModule, self).run(tmp, task_vars)
+        self._supports_check_mode = True
+        result = super(ActionModule, self).run(tmp, task_vars)
+
         module_args = self._task.args.copy()
-        ws_packages = list()
+        packages = list()
+        brew_packages = list()
+
         for key, value in task_vars.items():
-            if key == 'ws_packages':
-                ws_packages = value
+            if key == 'packages':
+                packages = value
+            if key == 'brew_packages':
+                brew_packages = value
 
-        package = module_args['package']
-        if isinstance(package,str):
-            ws_packages.append(package)
-        elif isinstance(package, list):
-            for pkg in package:
-                ws_packages.append(pkg)
+        if 'package' in module_args:
+            packages = self._add_package(packages, module_args['package'])
+        if 'brew' in module_args:
+            packages = self._add_package(brew_packages, module_args['brew'])
 
-        ws_packages.sort()
-        return dict(ansible_facts=dict(ws_packages=ws_packages))
+        result['ansible_facts'] = dict(
+            packages=packages,
+            brew_packages=brew_packages
+        )
+        return result

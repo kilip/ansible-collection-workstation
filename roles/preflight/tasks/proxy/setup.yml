@@ -29,11 +29,3 @@
     marker_begin: "workstation.proxy.start"
     marker_end: "workstation.proxy.end"
     block: "{{ lookup('template', 'proxy/etc-environment.j2') }}"
-
-- name: proxy ~> Configure curl for user
-  ansible.builtin.lineinfile:
-    path: "{{ ws_user_home }}/.curlrc"
-    line: "insecure"
-    owner: "{{ ws_user }}"
-    group: "{{ ws_user }}"
-    mode: "0644"

@@ -3,16 +3,16 @@
   ansible.builtin.include_tasks: proxy/setup.yml
   when: ws_proxy_build
 
-- name: Ensure node upgraded
+- name: Ensure workstation OS is upgraded
   ansible.builtin.include_tasks: "dist/setup-{{ ws_os_family }}.yml"
 
-- name: Ensure node packages installed
+- name: Ensure required packages installed
   ansible.builtin.package:
-    name: "{{ ws_packages }}"
+    name: "{{ packages }}"
     state: present
 
 # fix linuxbrew install when using proxy with ssl bump
-- name: Ensure git http.sslVerify disabled when proxy use ssl bump
+- name: Ensure git http.sslVerify disabled
   community.general.git_config:
     scope: system
     name: "{{ item.name }}"
@@ -23,3 +23,22 @@
     - name: http.sslVerify
       value: false
   when: ws_proxy_cert_build
+
+- name: Ensure curl secure options disabled
+  ansible.builtin.lineinfile:
+    path: "{{ ws_user_home }}/.curlrc"
+    line: "insecure"
+    owner: "{{ ws_user }}"
+    group: "{{ ws_user }}"
+    mode: "0644"
+    create: true
+  when: ws_proxy_cert_build
+
+- name: Ensure remote temp dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_remote_tmp }}"
+    state: directory
+    mode: "0777"
+    owner: "{{ ws_user }}"
+    group: "{{ ws_user_group }}"
+  when: ansible_remote_tmp is defined

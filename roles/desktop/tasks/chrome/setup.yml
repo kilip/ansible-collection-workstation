@@ -1,0 +1,8 @@
+---
+- name: chrome ~> Ensure setup tasks for "{{ ws_os_family }}" included
+  ansible.builtin.include_tasks: "setup-{{ ws_os_family }}.yml"
+
+- name: chrome ~> Ensure package installed
+  ansible.builtin.package:
+    name: 'google-chrome-stable'
+    state: present

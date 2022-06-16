@@ -1,0 +1,12 @@
+---
+- name: chrome ~> Ensure apt key present
+  ansible.builtin.apt_key:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    keyring: /etc/apt/trusted.gpg.d/google.gpg
+    state: present
+
+- name: chrome ~> Ensure apt repository present and cache updated
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+    filename: "chrome.list"
+    update_cache: yes

@@ -11,5 +11,7 @@ ws_roles:
     preflight: yes
   - name: kilip.workstation.development
     preflight: yes
+  - name: kilip.workstation.desktop
+    preflight: no
 
 encrypted_dir: 'encrypted'

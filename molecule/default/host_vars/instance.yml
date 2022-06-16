@@ -27,3 +27,5 @@ pyenv: yes
 vscode: yes
 virtualbox: yes
 vagrant: yes
+
+google_chrome: yes

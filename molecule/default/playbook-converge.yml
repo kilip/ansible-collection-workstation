@@ -6,4 +6,6 @@
   roles:
     - kilip.workstation.build
   vars:
-    brew: no
+    # only runs this long running tasks when package changes
+    brew: "{{ lookup('env', 'WS_BREW') }}"
+    regolith: "{{ lookup('env', 'WS_REGOLITH') }}"

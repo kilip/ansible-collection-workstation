@@ -29,3 +29,4 @@ virtualbox: yes
 vagrant: yes
 
 google_chrome: yes
+regolith: yes

@@ -8,4 +8,4 @@
 - name: pyenv ~> Ensure installed
   ansible.builtin.command:
     creates: "{{ pyenv_bin }}"
-    cmd: /usr/bin/bash /tmp/pyenv-install
+    cmd: bash /tmp/pyenv-install

@@ -8,11 +8,12 @@
   when: zsh
   ansible.builtin.copy:
     src: /etc/zsh/zshrc
+    remote_src: yes
     dest: "{{ zshrc }}"
     owner: "{{ user }}"
     group: "{{ user_group }}"
     mode: "0644"
-    force: false
+    force: no
 
 - name: Ensure fish config dir exists
   when: fish
@@ -27,6 +28,7 @@
   when: fish
   ansible.builtin.copy:
     src: /etc/fish/config.fish
+    remote_src: yes
     dest: "{{ fish_config }}"
     owner: "{{ user }}"
     group: "{{ user_group }}"

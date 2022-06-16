@@ -6,7 +6,7 @@
       become: true
       become_user: "{{ user }}"
 
-- name: omf ~> Install packages
+- name: omf ~> Ensure package installed
   ansible.builtin.shell:
     cmd: "omf install {{ item }}"
     creates: "{{ omf_target_dir }}/pkg/{{ item }}"

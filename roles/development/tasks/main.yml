@@ -12,5 +12,7 @@
       check: "{{ vscode }}"
     - name: virtualbox
       check: "{{ virtualbox }}"
+    - name: vagrant
+      check: "{{ vagrant }}"
   loop_control:
     loop_var: package

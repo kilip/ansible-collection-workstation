@@ -27,7 +27,7 @@ env:
 jobs:
   molecule:
     runs-on: ubuntu-latest
-    name: "Scenario ${{ matrix.scenario }}@${{ matrix.dist }}"
+    name: "Brew ${{ matrix.scenario }}@${{ matrix.dist }}"
     strategy:
       fail-fast: false
       matrix:

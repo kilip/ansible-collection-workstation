@@ -8,3 +8,4 @@
 - name: Ensure dist upgraded
   ansible.builtin.apt:
     upgrade: dist
+  changed_when: false

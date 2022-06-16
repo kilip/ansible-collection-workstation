@@ -1,0 +1,7 @@
+---
+- name: Ensure shell configured
+  ansible.builtin.include_tasks:
+    file: shell.yml
+    apply:
+      become: true
+      become_user: "{{ user }}"

@@ -3,9 +3,13 @@ name: CI
 on: # yamllint disable-line rule:truthy
   workflow_dispatch:
   push:
+    paths:
+      - roles/brew/**
     branches:
       - main
   pull_request:
+    paths:
+      - roles/brew/**
     branches:
       - main
   # Run CI once per day (at 05:15 UTC)
@@ -64,3 +68,4 @@ jobs:
         run: molecule test -s ${{ matrix.scenario}}
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
+          WS_BREW: 1

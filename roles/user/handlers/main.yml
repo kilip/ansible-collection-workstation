@@ -1,15 +1,35 @@
 ---
 - name: chezmoi add bashrc
-  debug: msg="Chezmoi add bashrc"
+  ansible.builtin.command:
+    cmd: "{{ chezmoi_bin }} add {{ bashrc }}"
+  changed_when: false
+  become: true
+  become_user: "{{ user }}"
 
 - name: chezmoi add profile
-  debug: msg="Chezmoi add profile"
+  ansible.builtin.command:
+    cmd: "{{ chezmoi_bin }} add {{ bash_profile }}"
+  changed_when: false
+  become: true
+  become_user: "{{ user }}"
 
 - name: chezmoi add fish
-  debug: msg="Chezmoi add fish"
+  ansible.builtin.command:
+    cmd: "{{ chezmoi_bin }} add {{ fish_config }}"
+  changed_when: false
+  become: true
+  become_user: "{{ user }}"
 
 - name: chezmoi add zshrc
-  debug: msg="Chezmoi add zshrc"
+  ansible.builtin.command:
+    cmd: "{{ chezmoi_bin }} add {{ zshrc }}"
+  changed_when: false
+  become: true
+  become_user: "{{ user }}"
 
 - name: chezmoi add zprofile
-  debug: msg="Chezmoi add zprofile"
+  ansible.builtin.command:
+    cmd: "{{ chezmoi_bin }} add {{ zsh_profile }}"
+  changed_when: false
+  become: true
+  become_user: "{{ user }}"

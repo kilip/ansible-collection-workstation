@@ -1,7 +1,7 @@
 ---
 - name: facts ~> Ensure executed user tasks configured
   ansible.builtin.set_fact:
-    ws_gpg_import: "{{ user_gpg_keys | length > 0 }}"
+    gpg_import: "{{ user_gpg_keys | length > 0 }}"
     ssh_import: "{{ user_ssh_keys | length > 0 }}"
 
 - name: facts ~> Ensure gpg keys configuration valid

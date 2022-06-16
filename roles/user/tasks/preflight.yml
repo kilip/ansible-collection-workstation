@@ -19,3 +19,7 @@
 - name: preflight ~> Ensure gpg deps packages is installed
   kilip.workstation.add_package:
     package: gnupg
+
+- name: preflight ~> Ensure gpg keys are imported
+  ansible.builtin.include_tasks: gpg/setup.yml
+  when: gpg_import

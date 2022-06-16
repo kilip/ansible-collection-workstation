@@ -3,9 +3,19 @@ name: CI
 on: # yamllint disable-line rule:truthy
   workflow_dispatch:
   push:
+    paths:
+      - roles/**
+      - molecule/**
+    paths-ignore:
+      - roles/brew/**
     branches:
       - main
   pull_request:
+    paths:
+      - roles/**
+      - molecule/**
+    paths-ignore:
+      - roles/brew/**
     branches:
       - main
   # Run CI once per day (at 05:15 UTC)

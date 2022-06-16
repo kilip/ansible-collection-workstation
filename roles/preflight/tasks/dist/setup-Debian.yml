@@ -1,6 +1,10 @@
 ---
-- name: Ensure dist upgraded
+- name: Ensure apt chache updated
   ansible.builtin.apt:
     update_cache: yes
-    upgrade: full
     cache_valid_time: 1500
+  changed_when: false
+
+- name: Ensure dist upgraded
+  ansible.builtin.apt:
+    upgrade: dist

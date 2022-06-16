@@ -10,7 +10,7 @@
     home: "{{ user_home }}"
     group:  "{{ user_group }}"
     state: present
-    shell: /usr/bin/bash
+    shell: /bin/bash
 
 - name: preflight ~> Ensure ssh keys imported
   ansible.builtin.include_tasks: ssh/setup.yml

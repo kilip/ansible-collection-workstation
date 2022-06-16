@@ -1,8 +1,8 @@
 ---
-- name: Ensure facts are gathered
+- name: Ensure facts gathered
   ansible.builtin.include_tasks: gather-facts.yml
 
-- name: Ensure workstation preflight validated
+- name: Ensure preflight check
   ansible.builtin.include_role:
     name: "{{ preflight_item.name }}"
     public: true
@@ -12,10 +12,20 @@
     loop_var: preflight_item
   loop: "{{ ws_roles }}"
 
-- name: Ensure workstation role build
+- name: Ensure workstation build
   ansible.builtin.include_role:
     name: "{{ build_item }}"
     public: true
   loop_control:
     loop_var: build_item
+  loop: "{{ ws_roles }}"
+
+- name: Ensure workstation post-build
+  ansible.builtin.include_role:
+    name: "{{ post.name }}"
+    public: true
+    tasks_from: post-build.yml
+  when: "'post_build' in post and post.post_build"
+  loop_control:
+    loop_var: post
   loop: "{{ ws_roles }}"

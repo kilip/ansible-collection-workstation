@@ -7,6 +7,6 @@
 
 - name: chrome ~> Ensure apt repository present and cache updated
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-    filename: "chrome.list"
+    repo: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
+    filename: "google-chrome"
     update_cache: yes

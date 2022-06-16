@@ -1,5 +1,5 @@
 ---
-- name: Ensure apt chache updated
+- name: Ensure apt cache updated
   ansible.builtin.apt:
     update_cache: yes
     cache_valid_time: 1500

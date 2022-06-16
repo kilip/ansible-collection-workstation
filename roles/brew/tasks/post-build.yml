@@ -5,3 +5,4 @@
     apply:
       become: true
       become_user: "{{ user }}"
+  when: brew

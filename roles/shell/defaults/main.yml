@@ -1,5 +1,6 @@
 ---
 bash: yes
+bash_profile: "{{ user_home }}/.profile"
 bashrc: "{{ user_home }}/.bashrc"
 
 zsh: yes
@@ -8,7 +9,7 @@ zshrc: "{{ user_home }}/.zshrc"
 
 fish: yes
 fish_bin: /usr/bin/fish
-fish_config: "{{ user_home }}/.local/fish/config.fish"
+fish_config: "{{ user_home }}/.config/fish/config.fish"
 
 
 omf: false

@@ -7,14 +7,20 @@
     block: "{{ lookup('template', item.tpl) }}"
   notify: "{{ item.notify }}"
   loop:
-    - dest: "{{ user_home }}/.profile"
+    - dest: "{{ bash_profile }}"
       tpl: "profile.j2"
       notify: chezmoi add profile
+    - dest: "{{ bashrc }}"
+      tpl: "profile.j2"
+      notify: chezmoi add bashrc
     - dest: "{{ zsh_profile }}"
       tpl: "zprofile.j2"
       notify: chezmoi add zprofile
+    - dest: "{{ zshrc }}"
+      tpl: "zprofile.j2"
+      notify: chezmoi add zshrc
     - dest: "{{ fish_config }}"
       tpl: "config.fish.j2"
-      notify: chezmoi add bashrc
+      notify: chezmoi add fish
   loop_control:
     label: "{{ item.tpl }}"

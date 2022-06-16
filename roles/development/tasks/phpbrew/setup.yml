@@ -64,7 +64,6 @@
       ansible.builtin.command:
         cmd: "{{ brew_bin }} unlink php@8.1"
         removes: "{{ brew_prefix }}/bin/php"
-
   become: true
   become_user: "{{ user }}"
   when: not phpbrew_install

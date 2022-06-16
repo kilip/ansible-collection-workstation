@@ -1,14 +1,15 @@
 ---
-
-fish_bin: /usr/bin/fish
-
+bash: yes
 bashrc: "{{ user_home }}/.bashrc"
+
+zsh: yes
+zsh_profile: "{{ user_home }}/.zprofile"
 zshrc: "{{ user_home }}/.zshrc"
+
+fish: yes
+fish_bin: /usr/bin/fish
 fish_config: "{{ user_home }}/.local/fish/config.fish"
 
-bash: yes
-zsh: yes
-fish: yes
 
 omf: false
 omf_theme: ""

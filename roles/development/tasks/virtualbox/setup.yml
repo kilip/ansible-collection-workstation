@@ -1,0 +1,8 @@
+---
+- name: virtualbox ~> Ensure setup tasks for {{ ws_os_family }} include
+  ansible.builtin.include_tasks: virtualbox/setup-{{ ws_os_family }}.yml
+
+- name: virtualbox ~> Ensure installed
+  ansible.builtin.package:
+    name: "virtualbox"
+    state: present

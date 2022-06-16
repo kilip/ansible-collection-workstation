@@ -1,9 +1,0 @@
----
-- name: Build Workstation
-  hosts: all
-  become: true
-  gather_facts: true
-  roles:
-    - kilip.workstation.build
-  vars:
-    brew: yes

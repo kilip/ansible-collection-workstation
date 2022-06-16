@@ -3,11 +3,13 @@
 ws_os_family: "{{ ansible_os_family  }}"
 ws_os_dist: "{{ ansible_distribution }}"
 ws_os_major: "{{ ansible_distribution_major_version }}"
+ws_os_release: "{{ ansible_distribution_release | lower }}"
 
 ws_proxy: ""
 ws_proxy_cert: ""
 ws_proxy_auth: false
 ws_proxy_build: false
+ws_proxy_cert_build: false
 ws_packages:
   - zsh
 ws_proxy_cert_path: ""

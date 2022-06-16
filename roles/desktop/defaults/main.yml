@@ -1,0 +1,12 @@
+---
+
+google_chrome: no
+google_chrome_package: google-chrome-stable
+
+regolith: no
+regolith_package: "regolith-desktop"
+desktop_packages:
+  - name: chrome
+    check: "{{ google_chrome }}"
+  - name: regolith
+    check: "{{ regolith }}"

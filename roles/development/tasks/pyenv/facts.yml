@@ -1,1 +1,15 @@
 ---
+- name: facts ~> Ensure pyenv os vars loaded
+  ansible.builtin.include_vars: "pyenv/{{ ws_os_family }}.yml"
+
+- name: facts ~> Ensure pyenv installed
+  ansible.builtin.set_fact:
+    pyenv_install: "{{ 'pyenv' not in brew_packages or not brew }}"
+
+- name: facts ~> Ensure pyenv requirements
+  kilip.workstation.add_package:
+    package: "{{ pyenv_install and pyenv_deps or pyenv_deps_brew }}"
+
+- name: facts ~> Ensure pyenv bin path
+  ansible.builtin.set_fact:
+    pyenv_bin: "{{ pyenv_install and user_home + '/.pyenv/bin/pyenv' or brew_prefix_bin + '/pyenv' }}"

@@ -1,0 +1,8 @@
+---
+- name: vscode ~> Ensure package repository task included
+  ansible.builtin.include_tasks: "vscode/setup-{{ ws_os_family }}.yml"
+
+- name: vscode ~> Ensure code package installed
+  ansible.builtin.package:
+    name: code
+    state: present

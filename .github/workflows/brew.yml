@@ -1,23 +1,17 @@
-name: CI
+name: Brew
 
 on: # yamllint disable-line rule:truthy
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/ci.yml'
-      - 'roles/**'
-      - '!roles/brew/**'
-      - '!roles/desktop/tasks/regolith/**'
-      - 'molecule/**'
+      - .github/workflows/brew.yml
+      - roles/brew/**
     branches:
       - main
   pull_request:
     paths:
-      - '.github/workflows/ci.yml'
-      - 'roles/**'
-      - '!roles/brew/**'
-      - '!roles/desktop/tasks/regolith/**'
-      - 'molecule/**'
+      - .github/workflows/brew.yml
+      - roles/brew/**
     branches:
       - main
   # Run CI once per day (at 05:15 UTC)
@@ -35,7 +29,7 @@ env:
 jobs:
   molecule:
     runs-on: ubuntu-latest
-    name: "Scenario ${{ matrix.scenario }}@${{ matrix.dist }}"
+    name: "Brew ${{ matrix.scenario }}@${{ matrix.dist }}"
     strategy:
       fail-fast: false
       matrix:
@@ -76,3 +70,4 @@ jobs:
         run: molecule test -s ${{ matrix.scenario}}
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
+          WS_BREW: 1

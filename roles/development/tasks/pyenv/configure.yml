@@ -1,0 +1,32 @@
+---
+- name: pyenv ~> Ensure shell configured
+  ansible.builtin.blockinfile:
+    dest: "{{ item.dest }}"
+    marker_begin: "<> pyenv"
+    marker_end: "</> pyenv"
+    block: |
+      export PYENV_ROOT="$HOME/.pyenv"
+      command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+      eval "$(pyenv init -)"
+  notify: "{{ item.notify }}"
+  loop:
+    - dest: "{{ bashrc }}"
+      notify: chezmoi add bashrc
+    - dest: "{{ user_home }}/.profile"
+      notify: chezmoi add profile
+    - dest: "{{ zshrc }}"
+      notify: chezmoi add zshrc
+    - dest: "{{ zsh_profile }}"
+      notify: chezmoi add zprofile
+  loop_control:
+    label: "{{ item.dest }}"
+- name: pyenv ~> Ensure fish configured
+  ansible.builtin.blockinfile:
+    dest: "{{ fish_config }}"
+    marker_begin: "<> pyenv"
+    marker_end: "</> pyenv"
+    block: |
+      set -gx PYENV_ROOT $HOME/.pyenv
+      set -gx fish_user_paths $PYENV_ROOT/bin $fish_user_paths
+      pyenv init - | source
+  notify: chezmoi add fish

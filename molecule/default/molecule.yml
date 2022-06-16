@@ -19,5 +19,11 @@ provisioner:
     converge: "playbook-${PLAYBOOK:-converge}.yml"
   env:
     SOPS_AGE_KEY_FILE: "${MOLECULE_SCENARIO_DIRECTORY}/files/age.key"
+  options:
+    vvv: true
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callbacks_enabled: profile_tasks, timer, yaml
 verifier:
   name: ansible

@@ -1,10 +1,12 @@
 ---
+pyenv: no
 
-
-pyenv: yes
-
+phpbrew: no
 phpbrew_version: '1.27.0'
-phpbrew: yes
 phpbrew_package_deps: []
 phpbrew_bin: "{{ brew_prefix }}/bin/phpbrew"
 phpbrew_home: "{{ user_home }}/.phpbrew"
+
+vscode: no
+virtualbox: no
+vagrant: no

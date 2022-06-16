@@ -16,35 +16,55 @@
       delay: 3
       until: 0 == stat.rc
 
-    - name: phpbrew ~> Ensure bash loaded
+    - name: phpbrew ~> Ensure bash configured
       ansible.builtin.blockinfile:
-        marker_begin: <phpbrew>
-        marker_end: </phpbrew>
+        marker_begin: <> phpbrew
+        marker_end: </> phpbrew
         dest: "{{ bashrc }}"
         block: |
           [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
       notify: chezmoi add bashrc
 
-    - name: phpbrew ~> Ensure zsh loaded
+    - name: phpbrew ~> Ensure zsh configured
       when: zsh
       ansible.builtin.blockinfile:
-        marker_begin: <phpbrew>
-        marker_end: </phpbrew>
+        marker_begin: <> phpbrew
+        marker_end: </> phpbrew
         dest: "{{ zshrc }}"
         block: |
           [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
       notify: chezmoi add zshrc
 
+    - name: phpbrew ~> Ensure fish configured
+      when: fish
+      ansible.builtin.blockinfile:
+        marker_begin: <> phpbrew
+        marker_end: </> phpbrew
+        dest: "{{ fish_config }}"
+        block: |
+          source ~/.phpbrew/phpbrew.fish
+      notify: chezmoi add fish
+
     - name: phpbrew ~> Ensure init script configured
       ansible.builtin.blockinfile:
-        marker_begin: <phpbrew>
-        marker_end: </phpbrew>
+        marker_begin: <> phpbrew
+        marker_end: </> phpbrew
         dest: "{{ zshrc }}"
         block: "{{ lookup('template', 'phpbrew.init.j2') }}"
         create: yes
         owner: "{{ user }}"
         group: "{{ user_group }}"
         mode: "0644"
-      notify: chezmoi add fish
   become: true
   become_user: "{{ user }}"
+
+- name: phpbrew ~> Ensure brew environment configured
+  block:
+    - name: phpbrew ~> Ensure using system php
+      ansible.builtin.command:
+        cmd: "{{ ws_brew_bin }} unlink php@8.1"
+        removes: "{{ ws_brew_prefix_user }}/bin/php"
+
+  become: true
+  become_user: "{{ user }}"
+  when: not phpbrew_install

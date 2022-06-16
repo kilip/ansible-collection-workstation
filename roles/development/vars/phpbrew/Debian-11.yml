@@ -1,4 +1,40 @@
 ---
-phpbrew_package_deps:
+phpbrew_deps_brew:
   - php7.4-common
   - php7.4-cli
+
+phpbrew_deps:
+  - php7.4
+  - php7.4-common
+  - php7.4-cli
+  - php7.4-bz2
+  - build-essential
+  - autoconf
+  - automake
+  - autotools-dev
+  - re2c
+  - libxml2
+  - libxml2-dev
+  - libssl-dev
+  - openssl
+  - gettext
+  - libicu-dev
+  - libmcrypt-dev
+  - libmcrypt4
+  - libmhash-dev
+  - libmhash2
+  - libfreetype6
+  - libfreetype6-dev
+  - libgd-dev
+  - libgd3
+  - libpng-dev
+  - libpng16-16
+  - libjpeg-dev
+  - libxpm4
+  - libltdl7
+  - libltdl-dev
+  - libreadline-dev
+  - libxslt1-dev
+  - libbz2-dev
+  - libcurl4-gnutls-dev
+  - libzip-dev

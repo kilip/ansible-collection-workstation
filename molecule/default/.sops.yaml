@@ -1,0 +1,8 @@
+---
+creation_rules:
+  - path_regex: .*\.sops\.ya?ml
+    key_groups:
+      - age:
+          - age17s5tn4l2l7sw3h2x4uwxzx8jv0hn9k8zl9jgs8pkah0q92x7a44qpj9emf
+  - path_regex: files/encrypted
+    age: age17s5tn4l2l7sw3h2x4uwxzx8jv0hn9k8zl9jgs8pkah0q92x7a44qpj9emf

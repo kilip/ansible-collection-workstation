@@ -1,0 +1,19 @@
+---
+
+fish_bin: /usr/bin/fish
+
+bashrc: "{{ user_home }}/.bashrc"
+zshrc: "{{ user_home }}/.zshrc"
+fish_config: "{{ user_home }}/.local/fish/config.fish"
+
+bash: yes
+zsh: yes
+fish: yes
+
+omf: false
+omf_theme: ""
+omf_packages: []
+omf_target_dir: "{{ user_home }}/.local/share/omf"
+
+omz: false
+omz_theme: ""

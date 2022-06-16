@@ -1,12 +1,32 @@
 ---
 version: '3'
 
-tasks:
-  default:
-    desc: Runs deps
-    cmds:
-      - task: deps
+includes:
+  test: .taskfiles/TestTasks.yml
 
+tasks:
   deps:
     cmds:
       - pre-commit install
+
+  encrypt:
+    desc: Encrypt files
+    cmds:
+      - cp {{.CLI_ARGS}} {{.target}}
+      - sops -i -e --config {{.SOPS_CONFIG_FILE}} {{.target}}
+      - echo "success"
+    vars:
+      target: "{{.WS_ENCRYPTED_DIR}}/$(basename {{.CLI_ARGS}})"
+
+  export:gpg:
+    desc: Export your gpg keys with given id
+    cmds:
+      - gpg --export-secret-keys {{.CLI_ARGS}} > {{.tempfile}}
+      - cp {{.tempfile}} {{.target}}
+      - sops -i -e --config {{.SOPS_CONFIG_FILE}} {{.target}}
+      - rm {{.tempfile}}
+      - echo "exported {{.CLI_ARGS}}"
+    vars:
+      filename: gpg-{{.CLI_ARGS}}.key
+      tempfile: /tmp/{{.filename}}
+      target: '{{.WS_ENCRYPTED_DIR}}/{{.filename}}'

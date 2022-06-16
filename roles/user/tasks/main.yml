@@ -1,0 +1,4 @@
+---
+- name: Ensure chezmoi setup tasks included
+  when: chezmoi_init
+  ansible.builtin.include_tasks: chezmoi/setup.yml

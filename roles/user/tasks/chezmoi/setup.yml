@@ -1,0 +1,27 @@
+---
+- name: chezmoi ~> Ensure configured
+  block:
+    - name: chezmoi ~> Ensure chezmoi installed
+      when: chezmoi_install
+      ansible.builtin.shell:
+        cmd: sh -c "$(curl -kfsLS chezmoi.io/get)"
+        creates: "{{ chezmoi_bin }}"
+        chdir: "{{ user_home }}"
+      register: stat
+      retries: 5
+      delay: 3
+      until: 0 == stat.rc
+
+    - name: chezmoi ~> Ensure chezmoi dotfiles repo initialized
+      ansible.builtin.command:
+        creates: "{{ chezmoi_dir }}/.git/HEAD"
+        cmd: "{{ chezmoi_bin }} init --apply {{ chezmoi_repo }}"
+        chdir: "{{ user_home }}"
+      environment:
+        GIT_SSL_NO_VERIFY: "{{ 1 if ws_proxy_cert_build else 0 }}"
+      register: stat
+      retries: 5
+      delay: 3
+      until: 0 == stat.rc
+  become: true
+  become_user: "{{ user }}"

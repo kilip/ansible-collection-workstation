@@ -1,0 +1,23 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: instance
+    image: kilip/molecule-${MOLECULE_DIST:-ubuntu-22.04}:latest
+    pre_build_image: true
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: "playbook-${PLAYBOOK:-converge}.yml"
+  env:
+    SOPS_AGE_KEY_FILE: "${MOLECULE_SCENARIO_DIRECTORY}/files/age.key"
+verifier:
+  name: ansible

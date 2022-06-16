@@ -1,0 +1,15 @@
+---
+ws_roles:
+  - name: kilip.workstation.preflight
+    preflight: yes
+  - name: kilip.workstation.brew
+    preflight: yes
+  - name: kilip.workstation.user
+    preflight: yes
+    post_build: yes
+  - name: kilip.workstation.shell
+    preflight: yes
+  - name: kilip.workstation.development
+    preflight: yes
+
+encrypted_dir: 'encrypted'

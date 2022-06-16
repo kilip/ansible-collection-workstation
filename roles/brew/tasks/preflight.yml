@@ -1,0 +1,6 @@
+---
+- name: Install development tools on RedHat family os
+  ansible.builtin.yum:
+    name: '@Development tools'
+    state: present
+  when: ws_os_family == 'RedHat'

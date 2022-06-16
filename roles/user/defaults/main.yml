@@ -1,0 +1,16 @@
+---
+
+user: ""
+user_group: "{{ user }}"
+user_home: "/home/{{ user }}"
+
+user_ssh_keys: []
+user_gpg_keys: []
+
+chezmoi_init: false
+chezmoi_dir: "{{ user_home }}/.local/share/chezmoi"
+chezmoi_bin:: "{{ brew_prefix }}/bin/chezmoi"
+
+omf: true
+omf_theme: ""
+omf_packages: []

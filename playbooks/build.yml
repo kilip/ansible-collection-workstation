@@ -1,6 +1,8 @@
 ---
 - name: Build Workstation
+  hosts: all
   become: true
   gather_facts: true
   roles:
-    - build
+    - name: kilip.workstation.build
+      public: true

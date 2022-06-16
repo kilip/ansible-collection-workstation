@@ -1,0 +1,5 @@
+---
+- name: Ensure package facts loaded
+  ansible.builtin.include_tasks: "{{ item }}/facts.yml"
+  loop:
+    - phpbrew

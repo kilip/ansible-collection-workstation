@@ -1,0 +1,7 @@
+---
+- name: gpg ~> Ensure key imported
+  ansible.builtin.include_tasks: import.yml
+  loop: "{{ user_gpg_keys }}"
+  loop_control:
+    loop_var: ws_gpg
+    label: ws_gpg.file

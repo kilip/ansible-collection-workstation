@@ -1,8 +1,11 @@
 {
   "recommendations": [
-    "redhat.ansible",
-    "redhat.vscode-yaml",
+    "britesnow.vscode-toggle-quotes",
+    "mitchdenny.ecdc",
     "oderwat.indent-rainbow",
-    "EditorConfig.EditorConfig"
+    "redhat.ansible",
+    "signageos.signageos-vscode-sops",
+    "usernamehw.errorlens",
+    "fcrespo82.markdown-table-formatter"
   ]
 }

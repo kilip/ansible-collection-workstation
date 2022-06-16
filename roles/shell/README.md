@@ -1,0 +1,3 @@
+Role: Shell
+=====
+Shell configuration

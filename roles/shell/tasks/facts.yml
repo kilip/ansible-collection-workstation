@@ -1,0 +1,26 @@
+---
+- name: facts ~> Ensure fish installed
+  when: omf
+  kilip.workstation.add_package:
+    package: fish
+
+- name: facts ~> Ensure zsh installed
+  kilip.workstation.add_package:
+    package: zsh
+  when: zsh
+
+- name: facts ~> Ensure conditional omf packages installed
+  kilip.workstation.add_package:
+    omf: "{{ item.name }}"
+  when: item.check
+  loop:
+    - name: phpbrew
+      check: "{{ 'phpbrew' in brew_packages }}"
+    - name: php-version
+      check: "{{ 'phpbrew' in brew_packages }}"
+    - name: composer
+      check: "{{ 'composer' in brew_packages }}"
+    - name: autovenv
+      check: "{{ 'pyenv' in brew_packages }}"
+  loop_control:
+    label: "{{ item.name }}"

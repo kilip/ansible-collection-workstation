@@ -1,0 +1,17 @@
+---
+- name: omf ~> Ensure installed
+  ansible.builtin.include_tasks:
+    file: setup-Linux.yml
+    apply:
+      become: true
+      become_user: "{{ user }}"
+
+- name: omf ~> Ensure package installed
+  ansible.builtin.shell:
+    cmd: "omf install {{ item }}"
+    creates: "{{ omf_target_dir }}/pkg/{{ item }}"
+    chdir: "{{ user_home }}"
+    executable: /usr/bin/fish
+  loop: "{{ omf_packages }}"
+  become: true
+  become_user: "{{ user }}"

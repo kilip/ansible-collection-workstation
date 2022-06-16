@@ -1,0 +1,12 @@
+---
+- name: proxy ~> Ensure config is valid
+  ansible.builtin.assert:
+    that: ws_proxy | length > 0
+    quiet: true
+    fail_msg: "ws_proxy variables should be configured when using ws_proxy_cert"
+  when: ws_proxy_cert | length > 0
+
+
+- name: proxy ~> Ensure facts configured
+  ansible.builtin.set_fact:
+    ws_proxy_build: "{{ ws_proxy | length > 0 }}"

@@ -1,0 +1,28 @@
+---
+- name: ssh ~> Ensure keys dir exists
+  ansible.builtin.file:
+    path: "{{ user_home }}/.ssh"
+    state: directory
+    mode: "0700"
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+
+- name: ssh ~> Ensure private keys imported
+  ansible.builtin.copy:
+    content: "{{ lookup('community.sops.sops', encrypted_dir + '/' + item, rstrip=false ) }}"
+    dest: "{{ user_home }}/.ssh/{{ item | basename }}"
+    mode: "0600"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  loop: "{{ user_ssh_keys }}"
+
+- name: ssh ~> Ensure public keys imported
+  ansible.builtin.copy:
+    content: "{{ lookup('community.sops.sops', encrypted_dir + '/' + item + '.pub', rstrip=false) }}"
+    dest: "{{ user_home }}/.ssh/{{ item | basename }}.pub"
+    mode: "0600"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  loop: "{{ user_ssh_keys }}"
+  loop_control:
+    label: "{{ item }}.pub"

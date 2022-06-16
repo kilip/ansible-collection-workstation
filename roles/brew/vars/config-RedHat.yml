@@ -1,0 +1,9 @@
+---
+
+ws_brew_packages:
+  - procps-ng
+  - curl
+  - file
+  - git
+  - libxcrypt
+  - compat

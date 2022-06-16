@@ -1,0 +1,12 @@
+---
+- name: Normalize workstation config
+  kilip.workstation.facts:
+
+- name: Ensure facts are gathered
+  ansible.builtin.include_role:
+    name: "{{ role_item.name }}"
+    tasks_from: 'facts.yml'
+    public: true
+  loop: "{{ ws_roles }}"
+  loop_control:
+    loop_var: role_item

@@ -24,6 +24,17 @@
     mode: "0644"
     force: no
 
+- name: Ensure zprofile exists
+  when: zsh
+  ansible.builtin.copy:
+    src: /etc/zsh/zprofile
+    remote_src: yes
+    dest: "{{ zsh_profile }}"
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+    mode: "0644"
+    force: no
+
 - name: Ensure fish config exists
   when: fish
   ansible.builtin.copy:

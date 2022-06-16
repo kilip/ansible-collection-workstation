@@ -13,4 +13,4 @@
 
 - name: facts ~> Ensure phpbrew bin path
   ansible.builtin.set_fact:
-    phpbrew_bin: "{{ user_home }}/bin/phpbrew"
+    phpbrew_bin: "{{ phpbrew_install and user_home + '/bin/phpbrew' or brew_prefix + '/bin/phpbrew' }}"

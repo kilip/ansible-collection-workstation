@@ -21,3 +21,6 @@ brew_packages:
   - composer
 
 chezmoi_repo: https://github.com/kilip/molecule-dotfiles
+
+phpbrew: yes
+pyenv: yes

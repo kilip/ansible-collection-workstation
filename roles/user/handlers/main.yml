@@ -2,8 +2,14 @@
 - name: chezmoi add bashrc
   debug: msg="Chezmoi add bashrc"
 
+- name: chezmoi add profile
+  debug: msg="Chezmoi add profile"
+
 - name: chezmoi add fish
   debug: msg="Chezmoi add fish"
 
 - name: chezmoi add zshrc
   debug: msg="Chezmoi add zshrc"
+
+- name: chezmoi add zprofile
+  debug: msg="Chezmoi add zprofile"

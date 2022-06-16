@@ -8,6 +8,7 @@ ws_proxy: ""
 ws_proxy_cert: ""
 ws_proxy_auth: false
 ws_proxy_build: false
+ws_proxy_cert_build: false
 ws_packages:
   - zsh
 ws_proxy_cert_path: ""

@@ -49,7 +49,7 @@
       ansible.builtin.blockinfile:
         marker_begin: <> phpbrew
         marker_end: </> phpbrew
-        dest: "{{ zshrc }}"
+        dest: "{{ phpbrew_home }}/init"
         block: "{{ lookup('template', 'phpbrew.init.j2') }}"
         create: yes
         owner: "{{ user }}"
@@ -62,8 +62,8 @@
   block:
     - name: phpbrew ~> Ensure using system php
       ansible.builtin.command:
-        cmd: "{{ ws_brew_bin }} unlink php@8.1"
-        removes: "{{ ws_brew_prefix_user }}/bin/php"
+        cmd: "{{ brew_bin }} unlink php@8.1"
+        removes: "{{ brew_prefix }}/bin/php"
 
   become: true
   become_user: "{{ user }}"

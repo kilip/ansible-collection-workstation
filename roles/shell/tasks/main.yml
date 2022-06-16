@@ -4,6 +4,15 @@
   ansible.builtin.include_tasks:
     file: omf/setup.yml
 
+- name: Ensure fish config dir exists
+  when: fish
+  ansible.builtin.file:
+    path: "{{ fish_config | dirname }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+
 - name: Ensure zshrc exists
   when: zsh
   ansible.builtin.copy:
@@ -15,15 +24,6 @@
     mode: "0644"
     force: no
 
-- name: Ensure fish config dir exists
-  when: fish
-  ansible.builtin.file:
-    path: "{{ fish_config | dirname }}"
-    state: directory
-    mode: "0755"
-    owner: "{{ user }}"
-    group: "{{ user_group }}"
-
 - name: Ensure fish config exists
   when: fish
   ansible.builtin.copy:
@@ -33,4 +33,4 @@
     owner: "{{ user }}"
     group: "{{ user_group }}"
     mode: "0644"
-    force: false
+    force: no

@@ -7,6 +7,10 @@
         cmd: sh -c "$(curl -kfsLS chezmoi.io/get)"
         creates: "{{ chezmoi_bin }}"
         chdir: "{{ user_home }}"
+      register: stat
+      retries: 5
+      delay: 3
+      until: 0 == stat.rc
 
     - name: chezmoi ~> Ensure chezmoi dotfiles repo initialized
       ansible.builtin.command:

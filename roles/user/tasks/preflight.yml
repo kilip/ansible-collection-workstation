@@ -1,20 +1,20 @@
 ---
 - name: preflight ~> Ensure user group exists
   ansible.builtin.group:
-    name: "{{ ws_user_group }}"
+    name: "{{ user_group }}"
     state: present
 
 - name: preflight ~> Ensure user exist
   ansible.builtin.user:
-    name: "{{ ws_user }}"
-    home: "{{ ws_user_home }}"
-    group:  "{{ ws_user_group }}"
+    name: "{{ user }}"
+    home: "{{ user_home }}"
+    group:  "{{ user_group }}"
     state: present
     shell: /usr/bin/bash
 
 - name: preflight ~> Ensure ssh keys imported
   ansible.builtin.include_tasks: ssh/setup.yml
-  when: ws_ssh_import
+  when: ssh_import
 
 - name: preflight ~> Ensure gpg deps packages is installed
   kilip.workstation.add_package:

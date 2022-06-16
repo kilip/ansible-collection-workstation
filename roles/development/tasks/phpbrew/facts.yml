@@ -1,0 +1,16 @@
+---
+- name: facts ~> Ensure phpbrew vars loaded
+  ansible.builtin.include_vars: "phpbrew/{{ ws_os_dist }}-{{ ws_os_major }}.yml"
+
+- name: facts ~> Ensure phpbrew requirements
+  kilip.workstation.add_package:
+    package: "{{ phpbrew_package_deps }}"
+  when: phpbrew
+
+- name: facts ~> Ensure phpbrew install mode
+  ansible.builtin.set_fact:
+    phpbrew_install: "{{ 'phpbrew' not in brew_packages or not brew }}"
+
+- name: facts ~> Ensure phpbrew bin path
+  ansible.builtin.set_fact:
+    phpbrew_bin: "{{ user_home }}/bin/phpbrew"

@@ -1,0 +1,6 @@
+{% if brew and 'phpbrew' in brew_packages%}
+{% else %}
+export PHPBREW_ROOT=/home/toni/.phpbrew
+export PHPBREW_HOME=/home/toni/.phpbrew
+export PHPBREW_LOOKUP_PREFIX=/usr
+{% endif %}

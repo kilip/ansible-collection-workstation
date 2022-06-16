@@ -1,0 +1,4 @@
+---
+- name: Ensure phpbrew build
+  ansible.builtin.include_tasks: phpbrew/setup.yml
+  when: phpbrew

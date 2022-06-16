@@ -10,4 +10,4 @@
   until: not stat.failed
   loop: "{{ brew_packages }}"
   become: true
-  become_user: "{{ ws_user }}"
+  become_user: "{{ user }}"

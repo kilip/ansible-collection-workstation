@@ -1,0 +1,34 @@
+---
+- name: Ensure omf tasks included
+  when: omf
+  ansible.builtin.include_tasks:
+    file: omf/setup.yml
+
+- name: Ensure zshrc exists
+  when: zsh
+  ansible.builtin.copy:
+    src: /etc/zsh/zshrc
+    dest: "{{ zshrc }}"
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+    mode: "0644"
+    force: false
+
+- name: Ensure fish config dir exists
+  when: fish
+  ansible.builtin.file:
+    path: "{{ fish_config | dirname }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+
+- name: Ensure fish config exists
+  when: fish
+  ansible.builtin.copy:
+    src: /etc/fish/config.fish
+    dest: "{{ fish_config }}"
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+    mode: "0644"
+    force: false

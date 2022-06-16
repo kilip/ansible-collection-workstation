@@ -1,0 +1,14 @@
+---
+- name: Ensure bashrc file exists
+  ansible.builtin.copy:
+    src: /etc/skel/bashrc
+    remote_src: true
+    dest: "{{ bashrc_path }}"
+
+- name: Ensure bash configured
+  ansible.builtin.template:
+    src: bashrc.j2
+    dest: "{{ bashrc_path  }}"
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+    mode: "0600"

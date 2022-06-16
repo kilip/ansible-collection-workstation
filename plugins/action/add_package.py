@@ -37,20 +37,26 @@ class ActionModule(ActionBase):
         module_args = self._task.args.copy()
         packages = list()
         brew_packages = list()
+        omf_packages = list()
 
         for key, value in task_vars.items():
             if key == 'packages':
                 packages = value
             if key == 'brew_packages':
                 brew_packages = value
+            if key == 'omf_packages':
+                omf_packages = value
 
         if 'package' in module_args:
             packages = self._add_package(packages, module_args['package'])
         if 'brew' in module_args:
-            packages = self._add_package(brew_packages, module_args['brew'])
+            brew_packages = self._add_package(brew_packages, module_args['brew'])
+        if 'omf' in module_args:
+            omf_packages = self._add_package(omf_packages, module_args['omf'])
 
         result['ansible_facts'] = dict(
             packages=packages,
-            brew_packages=brew_packages
+            brew_packages=brew_packages,
+            omf_packages=omf_packages
         )
         return result

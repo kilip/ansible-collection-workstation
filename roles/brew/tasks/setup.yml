@@ -3,8 +3,8 @@
   ansible.builtin.file:
     path: "{{ brew_home }}"
     state: directory
-    owner: "{{ ws_user }}"
-    group: "{{ ws_user }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
     mode: "0755"
 
 - name: Start installation
@@ -28,4 +28,4 @@
       until: stat.rc == 0
 
   become: true
-  become_user: "{{ ws_user }}"
+  become_user: "{{ user }}"

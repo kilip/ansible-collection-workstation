@@ -26,10 +26,10 @@
 
 - name: Ensure curl secure options disabled
   ansible.builtin.lineinfile:
-    path: "{{ ws_user_home }}/.curlrc"
+    path: "{{ user_home }}/.curlrc"
     line: "insecure"
-    owner: "{{ ws_user }}"
-    group: "{{ ws_user }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
     mode: "0644"
     create: true
   when: ws_proxy_cert_build
@@ -39,6 +39,6 @@
     path: "{{ ansible_remote_tmp }}"
     state: directory
     mode: "0777"
-    owner: "{{ ws_user }}"
-    group: "{{ ws_user_group }}"
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
   when: ansible_remote_tmp is defined

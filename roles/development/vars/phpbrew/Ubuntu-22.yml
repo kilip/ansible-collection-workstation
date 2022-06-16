@@ -1,0 +1,4 @@
+---
+phpbrew_package_deps:
+  - php8.1-cli
+  - php8.1-bz2

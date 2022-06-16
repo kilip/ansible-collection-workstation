@@ -1,0 +1,4 @@
+---
+phpbrew_package_deps:
+  - php7.4-common
+  - php7.4-cli

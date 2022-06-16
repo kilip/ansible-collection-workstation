@@ -1,0 +1,23 @@
+user: toni
+user_ssh_keys:
+  - id_rsa
+user_gpg_keys:
+  - file: gpg-3C9B6EBE88D163FA.key
+  - file: gpg-40A29F572C8134B1.key
+ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
+ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
+
+omf: yes
+omf_theme: bobthefish
+
+omz: yes
+omz_theme: agnoster
+
+brew_packages:
+  - direnv
+  - chezmoi
+  - pyenv
+  - phpbrew
+  - composer
+
+chezmoi_repo: https://github.com/kilip/molecule-dotfiles

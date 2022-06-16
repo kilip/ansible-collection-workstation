@@ -13,7 +13,7 @@
 
     - name: gpg ~> Copy gpg key
       ansible.builtin.copy:
-        content: "{{ lookup('community.sops.sops', ws_encrypted_dir + '/' + ws_gpg.file, rstrip=false) }}"
+        content: "{{ lookup('community.sops.sops', encrypted_dir + '/' + ws_gpg.file, rstrip=false) }}"
         dest: "/tmp/{{ ws_gpg.id }}.key"
         mode: "0600"
       when: ws_gpg_do_import
@@ -28,4 +28,4 @@
         path: "/tmp/{{ ws_gpg.id }}.key"
         state: absent
   become: true
-  become_user: "{{ ws_user }}"
+  become_user: "{{ user }}"

@@ -1,8 +1,8 @@
 ---
 - name: facts ~> Ensure executed user tasks configured
   ansible.builtin.set_fact:
-    ws_gpg_import: "{{ ws_user_gpg_keys | length > 0 }}"
-    ws_ssh_import: "{{ ws_user_ssh_keys | length > 0 }}"
+    ws_gpg_import: "{{ user_gpg_keys | length > 0 }}"
+    ssh_import: "{{ user_ssh_keys | length > 0 }}"
 
 - name: facts ~> Ensure gpg keys configuration valid
   ansible.builtin.assert:
@@ -11,19 +11,30 @@
       - "'file' in item"
     fail_msg: User gpg Keys item should contains id and file format.
     quiet: true
-  loop: "{{ ws_user_gpg_keys }}"
+  loop: "{{ user_gpg_keys }}"
   no_log: true
 
 - name: facts ~> Ensure ssh public key exists
   ansible.builtin.assert:
     that:
-      - "{{ lookup('file', ws_encrypted_dir + '/' + item + '.pub' ) | length > 0 }}"
+      - "{{ lookup('file', encrypted_dir + '/' + item + '.pub' ) | length > 0 }}"
     fail_msg: User ssh public key file "{{ item }}.pub" should exists
     quiet: true
-  loop: "{{ ws_user_ssh_keys }}"
+  loop: "{{ user_ssh_keys }}"
 
-- name: facts ~> Ensure ws_user is configured
+- name: facts ~> Ensure user is configured
   ansible.builtin.assert:
-    that: ws_user | length > 0
+    that: user | length > 0
     quiet: true
-    fail_msg: ws_user variable should be configured
+    fail_msg: user variable should be configured
+
+- name: facts ~> Ensure chezmoi configured
+  ansible.builtin.set_fact:
+    chezmoi_init: "{{ chezmoi_repo | length > 0 }}"
+    chezmoi_install: "{{ 'chezmoi' not in brew_packages or not brew }}"
+    chezmoi_bin: "{{ ('chezmoi' in brew_packages and brew) and brew_prefix + '/bin/chezmoi' or user_home + '/bin/chezmoi' }}"
+
+- name: facts ~> Ensure chezmoi installed in brew packages
+  kilip.workstation.add_package:
+    brew: chezmoi
+  when: chezmoi_init

@@ -10,5 +10,7 @@
       check: "{{ pyenv }}"
     - name: vscode
       check: "{{ vscode }}"
+    - name: virtualbox
+      check: "{{ virtualbox }}"
   loop_control:
     loop_var: package

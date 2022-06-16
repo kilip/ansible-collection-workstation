@@ -8,3 +8,5 @@ phpbrew: yes
 phpbrew_package_deps: []
 phpbrew_bin: "{{ brew_prefix }}/bin/phpbrew"
 phpbrew_home: "{{ user_home }}/.phpbrew"
+
+vscode: false

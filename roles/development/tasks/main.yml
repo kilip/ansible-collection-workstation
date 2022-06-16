@@ -8,5 +8,7 @@
       check: "{{ phpbrew }}"
     - name: pyenv
       check: "{{ pyenv }}"
+    - name: vscode
+      check: "{{ vscode }}"
   loop_control:
     loop_var: package

@@ -5,6 +5,7 @@
       ansible.builtin.command:
         cmd: gpg --list-secret-keys --keyid-format LONG
       changed_when: false
+      failed_when: false
       register: _gpg
 
     - name: gpg ~> Set import facts

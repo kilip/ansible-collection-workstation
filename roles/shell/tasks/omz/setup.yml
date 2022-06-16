@@ -1,0 +1,13 @@
+---
+- name: omz ~> Ensure current install stat checked
+  ansible.builtin.stat:
+    path: "{{ omz_target_dir }}"
+  register: _omz
+
+- name: omz ~> Ensure install tasks included
+  when: not _omz.stat.exists
+  ansible.builtin.include_tasks:
+    file: omz/install.yml
+    apply:
+      become: true
+      become_user: "{{ user }}"

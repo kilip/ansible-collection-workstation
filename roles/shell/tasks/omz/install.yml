@@ -1,0 +1,5 @@
+---
+- name: omz ~> Ensure installed
+  ansible.builtin.shell:
+    cmd: sh -c "$(curl -kfsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    creates: "{{ omz_target_dir }}"

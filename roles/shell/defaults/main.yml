@@ -17,5 +17,12 @@ omf_theme: ""
 omf_packages: []
 omf_target_dir: "{{ user_home }}/.local/share/omf"
 
-omz: false
+omz: no
 omz_theme: ""
+omz_target_dir: "{{ user_home }}/.oh-my-zsh"
+
+shell_packages:
+  - name: omf
+    check: "{{ omf }}"
+  - name: omz
+    check: "{{ omz }}"

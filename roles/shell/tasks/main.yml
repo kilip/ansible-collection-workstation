@@ -1,8 +1,14 @@
 ---
-- name: Ensure omf tasks included
-  when: omf
+- name: Ensure package install tasks included
   ansible.builtin.include_tasks:
-    file: omf/setup.yml
+    file: "{{ shell.name }}/setup.yml"
+    apply:
+      become: true
+      become_user: "{{ user }}"
+  when: shell.check
+  loop: "{{ shell_packages }}"
+  loop_control:
+    loop_var: shell
 
 - name: Ensure fish config dir exists
   when: fish

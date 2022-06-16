@@ -17,7 +17,6 @@
       until: 0 == stat.rc
 
     - name: phpbrew ~> Ensure initialized
-      when: not phpbrew_install
       ansible.builtin.shell:
         cmd: "{{ phpbrew_bin }} init"
         creates: "{{ phpbrew_home }}/bashrc"

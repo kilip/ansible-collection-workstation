@@ -4,19 +4,19 @@
     path: "{{ brew_home }}"
     state: directory
     owner: "{{ user }}"
-    group: "{{ user }}"
+    group: "{{ user_group }}"
     mode: "0755"
 
-- name: Start installation
+- name: Ensure brew installed
   block:
-    - name: Download install script
+    - name: Ensure install scripts downloaded
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
         dest: /tmp/brew-install.sh
         mode: "0775"
         validate_certs: no
 
-    - name: Execute install script
+    - name: Ensure brew installed
       ansible.builtin.command:
         cmd: /tmp/brew-install.sh
         creates: "{{ brew_bin }}"

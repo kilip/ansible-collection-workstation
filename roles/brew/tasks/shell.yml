@@ -1,0 +1,20 @@
+---
+- name: Ensure shell configured
+  ansible.builtin.blockinfile:
+    marker_begin: <> brew
+    marker_end: </> brew
+    dest: "{{ item.dest }}"
+    block: "{{ lookup('template', item.tpl) }}"
+  notify: "{{ item.notify }}"
+  loop:
+    - dest: "{{ user_home }}/.profile"
+      tpl: "profile.j2"
+      notify: chezmoi add profile
+    - dest: "{{ zsh_profile }}"
+      tpl: "zprofile.j2"
+      notify: chezmoi add zprofile
+    - dest: "{{ fish_config }}"
+      tpl: "config.fish.j2"
+      notify: chezmoi add bashrc
+  loop_control:
+    label: "{{ item.tpl }}"

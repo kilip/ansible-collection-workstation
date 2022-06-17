@@ -51,15 +51,17 @@ jobs:
           filters: |
             desktop:
               - 'roles/desktop/**'
-              - '!roles/desktop/tasks/regolith'
+              - '!roles/desktop/tasks/regolith/**'
             regolith:
               - 'roles/desktop/tasks/regolith/**'
             brew:
-              - 'roles/brew'
+              - 'roles/brew/**'
             development:
-              - 'roles/development'
+              - 'roles/development/**'
             shell:
-              - 'roles/shell'
+              - 'roles/shell/**'
+            user:
+              - 'roles/user/**'
 
   user:
     needs: changes

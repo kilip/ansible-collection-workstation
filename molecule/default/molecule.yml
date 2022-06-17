@@ -25,5 +25,6 @@ provisioner:
     defaults:
       interpreter_python: auto_silent
       callbacks_enabled: profile_tasks, timer, yaml
+
 verifier:
   name: ansible

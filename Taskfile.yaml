@@ -36,3 +36,7 @@ tasks:
       filename: gpg-{{.CLI_ARGS}}.key
       tempfile: /tmp/{{.filename}}
       target: '{{.WS_FILES_DIR}}/gpg/{{.filename}}'
+
+  build:
+    cmds:
+      - ansible-playbook kilip.workstation.deps -vvvvv

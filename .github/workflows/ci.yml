@@ -104,7 +104,7 @@ jobs:
         uses: mdgreenwald/mozilla-sops-action@v1.2.0
 
       - name: Run molecule test
-        run: molecule test -s ${{ matrix.scenario}}
+        run: molecule test -s ${{ MOLECULE_SCENARIO}}
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
           PLAYBOOK: user

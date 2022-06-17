@@ -23,10 +23,8 @@ env:
 
 jobs:
   user:
-    needs: changes
-    if: ${{ needs.changes.outputs.user == 'true' }}
     runs-on: ubuntu-latest
-    name: "User - ${{ matrix.dist }}"
+    name: "Integration ${{ matrix.dist }}"
     strategy:
       fail-fast: false
       matrix:

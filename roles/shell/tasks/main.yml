@@ -1,14 +1,15 @@
 ---
 - name: Ensure package install tasks included
   ansible.builtin.include_tasks:
-    file: "{{ shell.name }}/setup.yml"
+    file: "{{ shell_tasks.name }}/setup.yml"
     apply:
       become: true
       become_user: "{{ user }}"
-  when: shell.check
+  when: shell_tasks.check
   loop: "{{ shell_packages }}"
   loop_control:
-    loop_var: shell
+    loop_var: shell_tasks
+    label: "{{ shell_tasks.name }}"
 
 - name: Ensure fish config dir exists
   when: fish

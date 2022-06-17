@@ -5,6 +5,7 @@
       ansible.builtin.command:
         cmd: gpg --list-secret-keys --keyid-format LONG
       changed_when: false
+      failed_when: false
       register: _gpg
 
     - name: gpg ~> Set import facts
@@ -13,7 +14,7 @@
 
     - name: gpg ~> Copy gpg key
       ansible.builtin.copy:
-        content: "{{ lookup('community.sops.sops', encrypted_dir + '/' + ws_gpg.file, rstrip=false) }}"
+        content: "{{ lookup('community.sops.sops', ws_gpg.file, rstrip=false) }}"
         dest: "/tmp/{{ ws_gpg.id }}.key"
         mode: "0600"
       when: ws_gpg_do_import

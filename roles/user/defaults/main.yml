@@ -11,6 +11,4 @@ chezmoi_init: false
 chezmoi_dir: "{{ user_home }}/.local/share/chezmoi"
 chezmoi_bin:: "{{ brew_prefix }}/bin/chezmoi"
 
-omf: true
-omf_theme: ""
-omf_packages: []
+git_config_path: "{{ user_home }}/.gitconfig"

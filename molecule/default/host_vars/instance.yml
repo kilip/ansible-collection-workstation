@@ -1,9 +1,30 @@
+brew: "{{ lookup('env', 'WS_BREW') | bool }}"
+shell: "{{ lookup('env', 'WS_SHELL') | bool }}"
+desktop: "{{ lookup('env', 'WS_DESKTOP') | bool }}"
+development: "{{ lookup('env', 'WS_DEVELOPMENT') | bool }}"
+
 user: toni
 user_ssh_keys:
-  - id_rsa
+  - ssh/id_rsa
 user_gpg_keys:
-  - file: gpg-3C9B6EBE88D163FA.key
-  - file: gpg-40A29F572C8134B1.key
+  - file: gpg/gpg-3C9B6EBE88D163FA.key
+  - file: gpg/gpg-40A29F572C8134B1.key
+user_shell: "/usr/bin/fish"
+
+git_config:
+  - name: user.name
+    value: Anthonius Munthi
+  - name: user.email
+    value: me@itstoni.com
+  - name: commit.gpgSign
+    value: true
+  - name: core.excludesFile
+    value: "~/.gitignore"
+  - name: user.signingKey
+    value: 3C9B6EBE88D163FA
+  - name: pull.rebase
+    value: true
+
 ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
 ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
 
@@ -24,9 +45,9 @@ chezmoi_repo: https://github.com/kilip/molecule-dotfiles
 
 phpbrew: yes
 pyenv: yes
-vscode: yes
-virtualbox: yes
-vagrant: yes
+vscode: "{{ lookup('env', 'WS_VSCODE') | bool }}"
+virtualbox: "{{ lookup('env', 'WS_VIRTUALBOX') | bool }}"
+vagrant: "{{ lookup('env', 'WS_VAGRANT') | bool }}"
 
-google_chrome: yes
-regolith: yes
+google_chrome: "{{ lookup('env', 'WS_GOOGLE_CHROME') | bool }}"
+regolith: "{{ lookup('env', 'WS_REGOLITH') | bool }}"

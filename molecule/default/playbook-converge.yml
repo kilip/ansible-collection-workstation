@@ -5,7 +5,3 @@
   gather_facts: true
   roles:
     - kilip.workstation.build
-  vars:
-    # only runs this long running tasks when package changes
-    brew: "{{ lookup('env', 'WS_BREW') and True or False }}"
-    regolith: "{{ lookup('env', 'WS_REGOLITH') }}"

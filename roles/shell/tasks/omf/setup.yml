@@ -1,10 +1,16 @@
 ---
+- name: omf ~> Ensure current omf stat checked
+  ansible.builtin.stat:
+    path: "{{ omf_target_dir }}"
+  register: _omf
+
 - name: omf ~> Ensure installed
   ansible.builtin.include_tasks:
     file: setup-Linux.yml
     apply:
       become: true
       become_user: "{{ user }}"
+  when: not _omf.stat.exists
 
 - name: omf ~> Ensure package installed
   ansible.builtin.shell:

@@ -22,6 +22,6 @@ class ActionModule(ActionBase):
         for gpg in user_gpg_keys:
             if 'id' not in gpg.keys():
                 filename = gpg['file']
-                gpg['id'] = filename.replace('gpg-', '').replace('.key', '')
+                gpg['id'] = filename.replace('gpg-', '').replace('.key', '').replace('gpg/', '')
 
         return dict(ansible_facts=dict(user_gpg_keys=user_gpg_keys))

@@ -16,6 +16,11 @@
       delay: 3
       until: 0 == stat.rc
 
+    - name: phpbrew ~> Ensure initialized
+      ansible.builtin.shell:
+        cmd: "{{ phpbrew_bin }} init"
+        creates: "{{ phpbrew_home }}/bashrc"
+
     - name: phpbrew ~> Ensure bash configured
       ansible.builtin.blockinfile:
         marker_begin: <> phpbrew

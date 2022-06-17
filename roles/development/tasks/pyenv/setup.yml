@@ -1,13 +1,18 @@
 ---
+- name: pyenv ~> Check current pyenv bin stat
+  ansible.builtin.stat:
+    path: "{{ pyenv_bin }}"
+  register: _pyenv_bin
+
 - name: pyenv ~> Ensure pyenv installed
   ansible.builtin.include_tasks:
     file: pyenv/install.yml
     apply:
       become: true
       become_user: "{{ user }}"
-  when: pyenv_install
+  when: pyenv_install and not _pyenv_bin.stat.exists
 
-- name: pyenv ~> Ensure user shel configured
+- name: pyenv ~> Ensure user shell configured
   ansible.builtin.include_tasks:
     file: pyenv/configure.yml
     apply:

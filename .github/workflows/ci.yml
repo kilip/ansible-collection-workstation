@@ -3,21 +3,9 @@ name: CI
 on: # yamllint disable-line rule:truthy
   workflow_dispatch:
   push:
-    paths:
-      - '.github/workflows/ci.yml'
-      - 'roles/**'
-      - '!roles/brew/**'
-      - '!roles/desktop/tasks/regolith/**'
-      - 'molecule/**'
     branches:
       - main
   pull_request:
-    paths:
-      - '.github/workflows/ci.yml'
-      - 'roles/**'
-      - '!roles/brew/**'
-      - '!roles/desktop/tasks/regolith/**'
-      - 'molecule/**'
     branches:
       - main
   # Run CI once per day (at 05:15 UTC)
@@ -33,14 +21,12 @@ env:
   ANSIBLE_FORCE_COLOR: 1
 
 jobs:
-  molecule:
+  user:
     runs-on: ubuntu-latest
-    name: "Scenario ${{ matrix.scenario }}@${{ matrix.dist }}"
+    name: "Integration ${{ matrix.dist }}"
     strategy:
       fail-fast: false
       matrix:
-        scenario:
-          - default
         dist:
           - ubuntu-22.04
           - debian-11
@@ -50,6 +36,26 @@ jobs:
         with:
           path: ansible_collections/kilip/workstation
 
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            desktop:
+              - 'roles/desktop/**'
+            regolith:
+              - 'roles/desktop/tasks/regolith/**'
+            brew:
+              - 'roles/brew/**'
+            development:
+              - 'roles/development/**'
+            shell:
+              - 'roles/shell/**'
+            virtualbox:
+              - 'roles/development/tasks/virtualbox/**'
+            vagrant:
+              - 'roles/development/tasks/vagrant/**'
+            vscode:
+              - 'roles/development/tasks/vscode/**'
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -73,6 +79,16 @@ jobs:
         uses: mdgreenwald/mozilla-sops-action@v1.2.0
 
       - name: Run molecule test
-        run: molecule test -s ${{ matrix.scenario}}
+        run: |
+          molecule --version
+          molecule test -s default
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
+          WS_SHELL: ${{ steps.filter.outputs.shell == 'true' }}
+          WS_DEVELOPMENT: ${{ steps.filter.outputs.development == 'true' }}
+          WS_DESKTOP: ${{ steps.filter.outputs.desktop == 'true' }}
+          WS_REGOLITH: ${{ steps.filter.outputs.regolith == 'true' }}
+          WS_BREW: ${{ steps.filter.outputs.brew == 'true' }}
+          WS_VIRTUALBOX: ${{ steps.filter.outputs.virtualbox == 'true' }}
+          WS_VAGRANT: ${{ steps.filter.outputs.vagrant == 'true' }}
+          WS_VSCODE: ${{ steps.filter.outputs.vscode == 'true' }}

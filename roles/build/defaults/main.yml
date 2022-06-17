@@ -3,20 +3,26 @@ ws_roles:
   - name: kilip.workstation.preflight
     preflight: yes
     post_build: no
+    enabled: yes
   - name: kilip.workstation.brew
     preflight: yes
     post_build: yes
+    enabled: "{{ brew }}"
   - name: kilip.workstation.user
     preflight: yes
-    post_build: no
+    post_build: yes
+    enabled: "{{ user | length > 0 }}"
   - name: kilip.workstation.shell
     preflight: yes
     post_build: no
+    enabled: "{{ shell }}"
   - name: kilip.workstation.development
     preflight: yes
     post_build: no
+    enabled: "{{ development }}"
   - name: kilip.workstation.desktop
     preflight: no
     post_build: no
+    enabled: "{{ desktop }}"
 
 encrypted_dir: 'encrypted'

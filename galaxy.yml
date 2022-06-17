@@ -1,7 +1,7 @@
 ---
 namespace: kilip
 name: workstation
-version: 1.0.1
+version: 1.0.2
 readme: README.md
 authors:
   - Anthonius Munthi <me@itstoni.com>

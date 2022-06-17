@@ -11,7 +11,7 @@ tasks:
     cmds:
       - pre-commit install
 
-  encrypt:
+  sops:encrypt:
     desc: Encrypt files
     cmds:
       - mkdir -p $(dirname {{.FULL_DEST}})
@@ -29,7 +29,7 @@ tasks:
       - mkdir -p $(dirname {{.target}})
       - gpg --export-secret-keys {{.CLI_ARGS}} > {{.tempfile}}
       - cp {{.tempfile}} {{.target}}
-      - sops -i -e --config {{.SOPS_CONFIG_FILE}} {{.target}}
+      - ansible-vault encrypt {{.target}}
       - rm {{.tempfile}}
       - echo "exported to gpg/{{.filename}}"
     vars:

@@ -23,4 +23,4 @@ tasks:
   login:
     desc: Login to active docker instance
     cmds:
-      - docker exec -e COLUMNS=149 -e LINES=37 -e TERM=bash -e TERM=xterm -ti instance bash --login
+      - molecule login -s {{.SCENARIO}}

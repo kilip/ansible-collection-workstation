@@ -9,7 +9,7 @@
 
 - name: ssh ~> Ensure private keys imported
   ansible.builtin.copy:
-    content: "{{ lookup('community.sops.sops', item, rstrip=false ) }}"
+    src: "{{ item }}"
     dest: "{{ user_home }}/.ssh/{{ item | basename }}"
     mode: "0600"
     owner: "{{ user }}"
@@ -18,7 +18,7 @@
 
 - name: ssh ~> Ensure public keys imported
   ansible.builtin.copy:
-    content: "{{ lookup('community.sops.sops', item + '.pub', rstrip=false) }}"
+    src: "{{ item }}.pub"
     dest: "{{ user_home }}/.ssh/{{ item | basename }}.pub"
     mode: "0600"
     owner: "{{ user }}"

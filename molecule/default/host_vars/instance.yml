@@ -1,3 +1,8 @@
+desktop: no
+shell: no
+development: no
+brew: no
+
 user: toni
 user_ssh_keys:
   - ssh/id_rsa

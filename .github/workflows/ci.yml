@@ -33,14 +33,42 @@ env:
   ANSIBLE_FORCE_COLOR: 1
 
 jobs:
-  molecule:
+  changes:
     runs-on: ubuntu-latest
-    name: "Scenario ${{ matrix.scenario }}@${{ matrix.dist }}"
+    # Set job outputs to values from filter step
+    outputs:
+      desktop: ${{ steps.filter.outputs.desktop }}
+      regolith: ${{ steps.filter.outputs.regolith }}
+      brew: ${{ steps.filter.outputs.brew }}
+      development: ${{ steps.filter.outputs.development }}
+      shell: ${{ steps.filter.outputs.shell }}
+      user: ${{ steps.filter.outputs.user}}
+    steps:
+      # For pull requests it's not necessary to checkout the code
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            desktop:
+              - 'roles/desktop/**'
+              - '!roles/desktop/tasks/regolith'
+            regolith:
+              - 'roles/desktop/tasks/regolith/**'
+            brew:
+              - 'roles/brew'
+            development:
+              - 'roles/development'
+            shell:
+              - 'roles/shell'
+
+  user:
+    needs: changes
+    if: ${{ needs.changes.outputs.user == 'true' }}
+    runs-on: ubuntu-latest
+    name: "User@${{ matrix.dist }}"
     strategy:
       fail-fast: false
       matrix:
-        scenario:
-          - default
         dist:
           - ubuntu-22.04
           - debian-11
@@ -76,3 +104,4 @@ jobs:
         run: molecule test -s ${{ matrix.scenario}}
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
+          PLAYBOOK: user

@@ -1,10 +1,13 @@
-name: CI
+name: Build
 
 on: # yamllint disable-line rule:truthy
   workflow_dispatch:
-  pull_request:
+  push:
     branches:
       - main
+  # Run CI once per day (at 05:15 UTC)
+  schedule:
+    - cron: '15 5 * * *'
 
 defaults:
   run:
@@ -78,11 +81,11 @@ jobs:
           molecule test -s default
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
-          WS_SHELL: ${{ steps.filter.outputs.shell == 'true' }}
-          WS_DEVELOPMENT: ${{ steps.filter.outputs.development == 'true' }}
-          WS_DESKTOP: ${{ steps.filter.outputs.desktop == 'true' }}
-          WS_REGOLITH: ${{ steps.filter.outputs.regolith == 'true' }}
-          WS_BREW: ${{ steps.filter.outputs.brew == 'true' }}
-          WS_VIRTUALBOX: ${{ steps.filter.outputs.virtualbox == 'true' }}
-          WS_VAGRANT: ${{ steps.filter.outputs.vagrant == 'true' }}
-          WS_VSCODE: ${{ steps.filter.outputs.vscode == 'true' }}
+          WS_SHELL: true
+          WS_DEVELOPMENT: true
+          WS_DESKTOP: true
+          WS_REGOLITH: true
+          WS_BREW: true
+          WS_VIRTUALBOX: true
+          WS_VAGRANT: true
+          WS_VSCODE: true

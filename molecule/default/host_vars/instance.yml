@@ -1,7 +1,7 @@
-brew: "{{ lookup('env', 'WS_BREW') | bool }}"
-shell: "{{ lookup('env', 'WS_SHELL') | bool }}"
-desktop: "{{ lookup('env', 'WS_DESKTOP') | bool }}"
-development: "{{ lookup('env', 'WS_DEVELOPMENT') | bool }}"
+build_brew: "{{ lookup('env', 'WS_BREW') | bool }}"
+build_shell: "{{ lookup('env', 'WS_SHELL') | bool }}"
+build_desktop: "{{ lookup('env', 'WS_DESKTOP') | bool }}"
+build_development: "{{ lookup('env', 'WS_DEVELOPMENT') | bool }}"
 
 user: toni
 user_ssh_keys:

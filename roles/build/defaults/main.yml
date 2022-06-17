@@ -1,4 +1,9 @@
 ---
+build_brew: no
+build_desktop: no
+build_development: no
+build_shell: no
+
 ws_roles:
   - name: kilip.workstation.preflight
     preflight: yes
@@ -7,7 +12,7 @@ ws_roles:
   - name: kilip.workstation.brew
     preflight: yes
     post_build: yes
-    enabled: "{{ brew }}"
+    enabled: "{{ build_brew }}"
   - name: kilip.workstation.user
     preflight: yes
     post_build: yes
@@ -15,14 +20,14 @@ ws_roles:
   - name: kilip.workstation.shell
     preflight: yes
     post_build: no
-    enabled: "{{ shell }}"
+    enabled: "{{ build_shell }}"
   - name: kilip.workstation.development
     preflight: yes
     post_build: no
-    enabled: "{{ development }}"
+    enabled: "{{ build_development }}"
   - name: kilip.workstation.desktop
     preflight: no
     post_build: no
-    enabled: "{{ desktop }}"
+    enabled: "{{ build_desktop }}"
 
 encrypted_dir: 'encrypted'

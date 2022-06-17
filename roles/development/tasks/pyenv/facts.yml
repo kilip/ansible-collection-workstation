@@ -4,7 +4,7 @@
 
 - name: facts ~> Ensure pyenv installed
   ansible.builtin.set_fact:
-    pyenv_install: "{{ 'pyenv' not in brew_packages or not brew }}"
+    pyenv_install: "{{ 'pyenv' not in brew_packages or not build_brew }}"
 
 - name: facts ~> Ensure pyenv requirements
   kilip.workstation.add_package:

@@ -4,7 +4,7 @@
 
 - name: facts ~> Ensure phpbrew install mode
   ansible.builtin.set_fact:
-    phpbrew_install: "{{ 'phpbrew' not in brew_packages or not brew }}"
+    phpbrew_install: "{{ 'phpbrew' not in brew_packages or not build_brew }}"
 
 - name: facts ~> Ensure phpbrew requirements
   kilip.workstation.add_package:

@@ -3,12 +3,14 @@
 user: ""
 user_group: "{{ user }}"
 user_home: "/home/{{ user }}"
-
+user_shell: "/bin/bash"
 user_ssh_keys: []
 user_gpg_keys: []
 
 chezmoi_init: false
 chezmoi_dir: "{{ user_home }}/.local/share/chezmoi"
 chezmoi_bin:: "{{ brew_prefix }}/bin/chezmoi"
+chezmoi_repo: ""
 
 git_config_path: "{{ user_home }}/.gitconfig"
+git_config: []

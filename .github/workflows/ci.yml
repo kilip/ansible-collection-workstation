@@ -19,7 +19,6 @@ defaults:
 env:
   PY_COLORS: 1
   ANSIBLE_FORCE_COLOR: 1
-  MOLECULE_SCENARIO: default
 
 jobs:
   user:
@@ -73,9 +72,12 @@ jobs:
         uses: mdgreenwald/mozilla-sops-action@v1.2.0
 
       - name: Run molecule test
-        run: molecule test -s ${{ env.MOLECULE_SCENARIO }}
+        run: molecule test -s default
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
           PLAYBOOK: user
           WS_SHELL: 1
-          WS_USER: 1
+          WS_DEVELOPMENT: ${{ steps.filter.outputs.development == 'true' }}
+          WS_DESKTOP: ${{ steps.filter.outputs.desktop == 'true' }}
+          WS_REGOLITH: ${{ steps.filter.outputs.regolith == 'true' }}
+          WS_BREW: ${{ steps.filter.outputs.brew == 'true' }}

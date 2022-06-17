@@ -54,6 +54,8 @@ jobs:
               - 'roles/development/tasks/virtualbox/**'
             vagrant:
               - 'roles/development/tasks/vagrant/**'
+            vagrant:
+              - 'roles/development/tasks/vscode/**'
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -77,7 +79,9 @@ jobs:
         uses: mdgreenwald/mozilla-sops-action@v1.2.0
 
       - name: Run molecule test
-        run: molecule test -s default
+        run: |
+          molecule --version
+          molecule test -s default
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
           WS_SHELL: ${{ steps.filter.outputs.shell == 'true' }}
@@ -85,3 +89,6 @@ jobs:
           WS_DESKTOP: ${{ steps.filter.outputs.desktop == 'true' }}
           WS_REGOLITH: ${{ steps.filter.outputs.regolith == 'true' }}
           WS_BREW: ${{ steps.filter.outputs.brew == 'true' }}
+          WS_VIRTUALBOX: ${{ steps.filter.outputs.virtualbox == 'true' }}
+          WS_VAGRANT: ${{ steps.filter.outputs.vagrant == 'true' }}
+          WS_VSCODE: ${{ steps.filter.outputs.vscode == 'true' }}

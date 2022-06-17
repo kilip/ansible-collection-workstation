@@ -50,7 +50,10 @@ jobs:
               - 'roles/development/**'
             shell:
               - 'roles/shell/**'
-
+            virtualbox:
+              - 'roles/development/tasks/virtualbox/**'
+            vagrant:
+              - 'roles/development/tasks/vagrant/**'
       - name: Set up Python
         uses: actions/setup-python@v4
         with:

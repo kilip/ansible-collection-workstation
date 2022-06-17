@@ -1,7 +1,7 @@
-desktop: no
-shell: no
-development: no
-brew: no
+brew: "{{ lookup('env', 'WS_BREW') | bool }}"
+shell: "{{ lookup('env', 'WS_SHELL') | bool }}"
+desktop: "{{ lookup('env', 'WS_DESKTOP') | bool }}"
+development: "{{ lookup('env', 'WS_DEVELOPMENT') | bool }}"
 
 user: toni
 user_ssh_keys:
@@ -45,9 +45,9 @@ chezmoi_repo: https://github.com/kilip/molecule-dotfiles
 
 phpbrew: yes
 pyenv: yes
-vscode: yes
-virtualbox: yes
-vagrant: yes
+vscode: "{{ lookup('env', 'WS_VSCODE') | bool }}"
+virtualbox: "{{ lookup('env', 'WS_VIRTUALBOX') | bool }}"
+vagrant: "{{ lookup('env', 'WS_VAGRANT') | bool }}"
 
-google_chrome: yes
-regolith: yes
+google_chrome: "{{ lookup('env', 'WS_GOOGLE_CHROME') | bool }}"
+regolith: "{{ lookup('env', 'WS_REGOLITH') | bool }}"

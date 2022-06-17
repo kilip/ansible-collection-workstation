@@ -38,3 +38,7 @@
   kilip.workstation.add_package:
     brew: chezmoi
   when: chezmoi_init
+
+- name: facts ~> Ensure user facts configured
+  ansible.builtin.set_fact:
+    user_configure_shell: "{{ user_shell | length > 0 }}"

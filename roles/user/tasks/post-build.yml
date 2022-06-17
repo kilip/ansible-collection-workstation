@@ -1,0 +1,6 @@
+---
+- name: Configure user shell
+  when: user_configure_shell
+  ansible.builtin.user:
+    name: "{{ user }}"
+    shell: "{{ user_shell }}"

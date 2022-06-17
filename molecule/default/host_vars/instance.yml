@@ -4,6 +4,8 @@ user_ssh_keys:
 user_gpg_keys:
   - file: gpg/gpg-3C9B6EBE88D163FA.key
   - file: gpg/gpg-40A29F572C8134B1.key
+user_shell: "/usr/bin/fish"
+
 ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
 ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
 

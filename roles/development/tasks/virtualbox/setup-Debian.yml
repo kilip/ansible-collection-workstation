@@ -7,6 +7,6 @@
 
 - name: virtualbox ~> Ensure apt repository present and updated
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian {{ ws_os_release }} contrib"
+    repo: "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian {{ os_release }} contrib"
     filename: "virtualbox"
     update_cache: yes

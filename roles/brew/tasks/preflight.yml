@@ -3,4 +3,4 @@
   ansible.builtin.yum:
     name: '@Development tools'
     state: present
-  when: ws_os_family == 'RedHat'
+  when: os_family == 'RedHat'

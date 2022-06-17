@@ -5,6 +5,7 @@
   changed_when: false
   become: true
   become_user: "{{ user }}"
+  when: chezmoi_init
 
 - name: chezmoi add profile
   ansible.builtin.command:
@@ -12,6 +13,7 @@
   changed_when: false
   become: true
   become_user: "{{ user }}"
+  when: chezmoi_init
 
 - name: chezmoi add fish
   ansible.builtin.command:
@@ -19,6 +21,7 @@
   changed_when: false
   become: true
   become_user: "{{ user }}"
+  when: chezmoi_init
 
 - name: chezmoi add zshrc
   ansible.builtin.command:
@@ -26,6 +29,7 @@
   changed_when: false
   become: true
   become_user: "{{ user }}"
+  when: chezmoi_init
 
 - name: chezmoi add zprofile
   ansible.builtin.command:
@@ -33,6 +37,7 @@
   changed_when: false
   become: true
   become_user: "{{ user }}"
+  when: chezmoi_init
 
 - name: chezmoi add git
   ansible.builtin.command:
@@ -40,3 +45,4 @@
   changed_when: false
   become: true
   become_user: "{{ user }}"
+  when: chezmoi_init

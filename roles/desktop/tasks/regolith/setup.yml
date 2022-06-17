@@ -8,10 +8,10 @@
         state: present
     - name: Ensrue apt repository present and cache updated
       ansible.builtin.apt_repository:
-        repo: "deb [arch=amd64] http://regolith-desktop.io/release-{{ ws_os_dist }}-{{ ws_os_release }}-amd64 {{ ws_os_release }} main"
+        repo: "deb [arch=amd64] http://regolith-desktop.io/release-{{ os_dist }}-{{ os_release }}-amd64 {{ os_release }} main"
         filename: "regolith"
         update_cache: yes
-  when: ws_os_release in ["bullseye", "focal", "jammy"]
+  when: os_release in ["bullseye", "focal", "jammy"]
 
 - name: regolith ~> Ensure use regolith 1.6 on older dist
   block:
@@ -21,7 +21,7 @@
     - name: Ensure regolith package name configured
       ansible.builtin.set_fact:
         regolith_package: regolith-desktop-standard
-  when: ws_os_release not in ["bullseye", "focal", "jammy"]
+  when: os_release not in ["bullseye", "focal", "jammy"]
 
 - name: regolith ~> Ensure package installed
   ansible.builtin.package:

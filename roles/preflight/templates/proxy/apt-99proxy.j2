@@ -1,5 +1,5 @@
-Acquire::http::Proxy "http://{{ ws_proxy }}";
-Acquire::https::Proxy "http://{{ ws_proxy }}";
-{% if ws_proxy_cert_build %}
+Acquire::http::Proxy "http://{{ proxy }}";
+Acquire::https::Proxy "http://{{ proxy }}";
+{% if proxy_cert_build %}
 Acquire::https::Verify-Peer "false";
 {% endif %}

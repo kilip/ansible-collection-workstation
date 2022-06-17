@@ -1,2 +1,2 @@
-ws_cert_path: /etc/pki/ca-trust/source/anchors
-ws_update_cert_command: "update-ca-trust"
+cert_path: /etc/pki/ca-trust/source/anchors
+update_cert_command: "update-ca-trust"

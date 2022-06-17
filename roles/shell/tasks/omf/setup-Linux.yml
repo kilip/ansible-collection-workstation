@@ -3,7 +3,7 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install
     dest: /tmp/omf-install
-    validate_certs: "{{ not ws_proxy_cert_build }}"
+    validate_certs: "{{ not proxy_cert_build }}"
 
 - name: omf ~> Execute install script
   ansible.builtin.command:

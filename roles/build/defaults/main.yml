@@ -4,7 +4,7 @@ build_desktop: no
 build_development: no
 build_shell: no
 
-ws_roles:
+roles:
   - name: kilip.workstation.preflight
     preflight: yes
     post_build: no

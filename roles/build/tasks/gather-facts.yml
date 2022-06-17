@@ -8,6 +8,6 @@
     tasks_from: 'facts.yml'
     public: true
   when: role_item.enabled
-  loop: "{{ ws_roles }}"
+  loop: "{{ roles }}"
   loop_control:
     loop_var: role_item

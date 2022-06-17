@@ -1,6 +1,6 @@
 ---
 - name: facts ~> Ensure phpbrew vars loaded
-  ansible.builtin.include_vars: "phpbrew/{{ ws_os_dist }}-{{ ws_os_major }}.yml"
+  ansible.builtin.include_vars: "phpbrew/{{ os_dist }}-{{ os_major }}.yml"
 
 - name: facts ~> Ensure phpbrew install mode
   ansible.builtin.set_fact:

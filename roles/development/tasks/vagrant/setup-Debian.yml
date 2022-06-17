@@ -7,6 +7,6 @@
 
 - name: vagrant ~> Ensure repository source present and apt cache updated
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ws_os_release }} main"
+    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ os_release }} main"
     filename: "vagrant"
     update_cache: yes

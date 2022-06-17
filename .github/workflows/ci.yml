@@ -48,6 +48,8 @@ jobs:
               - 'roles/brew/**'
             development:
               - 'roles/development/**'
+            shell:
+              - 'roles/shell/**'
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -76,7 +78,7 @@ jobs:
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
           PLAYBOOK: user
-          WS_SHELL: 1
+          WS_SHELL: ${{ steps.filter.outputs.shell == 'true' }}
           WS_DEVELOPMENT: ${{ steps.filter.outputs.development == 'true' }}
           WS_DESKTOP: ${{ steps.filter.outputs.desktop == 'true' }}
           WS_REGOLITH: ${{ steps.filter.outputs.regolith == 'true' }}

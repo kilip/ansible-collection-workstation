@@ -1,6 +1,16 @@
 ---
-- name: Configure user shell
+- name: Ensure default shell configured
   when: user_configure_shell
   ansible.builtin.user:
     name: "{{ user }}"
     shell: "{{ user_shell }}"
+
+- name: Ensure git configured
+  community.general.git_config:
+    scope: "{{ 'scope' in item and item.scope or 'global' }}"
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  when: user_configure_git
+  loop: "{{ git_config }}"
+  become_user: "{{ user }}"
+  notify: chezmoi add git

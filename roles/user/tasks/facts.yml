@@ -42,3 +42,4 @@
 - name: facts ~> Ensure user facts configured
   ansible.builtin.set_fact:
     user_configure_shell: "{{ user_shell | length > 0 }}"
+    user_configure_git: "{{ git_config | length > 0 }}"

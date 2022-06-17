@@ -6,6 +6,20 @@ user_gpg_keys:
   - file: gpg/gpg-40A29F572C8134B1.key
 user_shell: "/usr/bin/fish"
 
+git_config:
+  - name: user.name
+    value: Anthonius Munthi
+  - name: user.email
+    value: me@itstoni.com
+  - name: commit.gpgSign
+    value: true
+  - name: core.excludesFile
+    value: "~/.gitignore"
+  - name: user.signingKey
+    value: 3C9B6EBE88D163FA
+  - name: pull.rebase
+    value: true
+
 ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
 ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
 

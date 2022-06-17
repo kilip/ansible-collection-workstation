@@ -77,7 +77,6 @@ jobs:
         run: molecule test -s default
         env:
           MOLECULE_DIST: ${{ matrix.dist }}
-          PLAYBOOK: user
           WS_SHELL: ${{ steps.filter.outputs.shell == 'true' }}
           WS_DEVELOPMENT: ${{ steps.filter.outputs.development == 'true' }}
           WS_DESKTOP: ${{ steps.filter.outputs.desktop == 'true' }}

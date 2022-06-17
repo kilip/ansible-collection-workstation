@@ -8,7 +8,7 @@
   vars:
     # only runs this long running tasks when package changes
     brew: "{{ lookup('env', 'WS_BREW') | bool }}"
-    regolith: "{{ lookup('env', 'WS_REGOLITH') | bool}}"
+    regolith: "{{ lookup('env', 'WS_REGOLITH') | bool }}"
     shell: "{{ lookup('env', 'WS_SHELL') | bool }}"
     desktop: "{{ lookup('env', 'WS_DESKTOP') | bool }}"
     development: "{{ lookup('env', 'WS_DEVELOPMENT') | bool }}"

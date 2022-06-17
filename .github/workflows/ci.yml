@@ -54,7 +54,7 @@ jobs:
               - 'roles/development/tasks/virtualbox/**'
             vagrant:
               - 'roles/development/tasks/vagrant/**'
-            vagrant:
+            vscode:
               - 'roles/development/tasks/vscode/**'
       - name: Set up Python
         uses: actions/setup-python@v4

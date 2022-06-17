@@ -4,4 +4,4 @@
   loop: "{{ user_gpg_keys }}"
   loop_control:
     loop_var: ws_gpg
-    label: ws_gpg.file
+    label: "{{ ws_gpg.file }}"

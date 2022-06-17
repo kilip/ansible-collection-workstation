@@ -31,6 +31,7 @@ defaults:
 env:
   PY_COLORS: 1
   ANSIBLE_FORCE_COLOR: 1
+  MOLECULE_SCENARIO: default
 
 jobs:
   changes:
@@ -67,7 +68,7 @@ jobs:
     needs: changes
     if: ${{ needs.changes.outputs.user == 'true' }}
     runs-on: ubuntu-latest
-    name: "User@${{ matrix.dist }}"
+    name: "User - ${{ matrix.dist }}"
     strategy:
       fail-fast: false
       matrix:

@@ -1,10 +1,4 @@
 ---
-- name: Ensure default shell configured
-  when: user_configure_shell
-  ansible.builtin.user:
-    name: "{{ user }}"
-    shell: "{{ user_shell }}"
-
 - name: Ensure git configured
   community.general.git_config:
     scope: "{{ 'scope' in item and item.scope or 'global' }}"

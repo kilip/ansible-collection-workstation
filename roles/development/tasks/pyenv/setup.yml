@@ -26,5 +26,5 @@
     marker_begin: "<> pyenv"
     marker_end: "</> pyenv"
     block: |
-      PYTHON_BUILD_ARIA2_OPTS="--check-certificate=false"
+      export PYTHON_BUILD_ARIA2_OPTS="--check-certificate=false"
   when: proxy_cert_build

@@ -4,6 +4,7 @@
     url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
     keyring: /etc/apt/trusted.gpg.d/oracle_vbox_2016.gpg
     state: present
+    validate_certs: false
 
 - name: virtualbox ~> Ensure apt repository present and updated
   ansible.builtin.apt_repository:

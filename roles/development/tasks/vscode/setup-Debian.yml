@@ -4,6 +4,7 @@
     url: https://packages.microsoft.com/keys/microsoft.asc
     keyring: /etc/apt/trusted.gpg.d/microsoft.gpg
     state: present
+    validate_certs: false
 
 - name: vscode ~> Ensure repository source present
   ansible.builtin.apt_repository:

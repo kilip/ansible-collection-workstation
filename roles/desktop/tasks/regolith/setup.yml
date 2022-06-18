@@ -6,6 +6,7 @@
         url: https://regolith-desktop.io/regolith.key
         keyring: /etc/apt/trusted.gpg.d/regolith-archive-keyring.gpg
         state: present
+        validate_certs: no
     - name: Ensrue apt repository present and cache updated
       ansible.builtin.apt_repository:
         repo: "deb [arch=amd64] http://regolith-desktop.io/release-{{ os_dist }}-{{ os_release }}-amd64 {{ os_release }} main"
@@ -18,6 +19,7 @@
     - name: Ensure apt repo ppa added
       ansible.builtin.apt_repository:
         repo: ppa:regolith-linux/release
+        validate_certs: no
     - name: Ensure regolith package name configured
       ansible.builtin.set_fact:
         regolith_package: regolith-desktop-standard

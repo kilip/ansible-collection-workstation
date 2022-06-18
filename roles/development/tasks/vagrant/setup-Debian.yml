@@ -4,6 +4,7 @@
     url: https://apt.releases.hashicorp.com/gpg
     keyring: /etc/apt/trusted.gpg.d/vagrant.gpg
     state: present
+    validate_certs: false
 
 - name: vagrant ~> Ensure repository source present and apt cache updated
   ansible.builtin.apt_repository:

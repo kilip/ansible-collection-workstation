@@ -21,6 +21,7 @@ tags:
 dependencies:
   ansible.posix: "*"
   community.general: ">=3.0.0"
+  community.sops: ">=1.2.2"
 
 repository: https://github.com/kilip/workstation
 documentation: https://github.com/kilip/workstation/wiki

@@ -6,6 +6,7 @@ user_home: "/home/{{ user }}"
 user_shell: "/bin/bash"
 user_ssh_keys: []
 user_gpg_keys: []
+user_add_sudoers: yes
 
 chezmoi_init: false
 chezmoi_dir: "{{ user_home }}/.local/share/chezmoi"

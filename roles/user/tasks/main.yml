@@ -23,7 +23,14 @@
       loop: "{{ git_clone }}"
       loop_control:
         label: "{{ item.dest | basename }}"
+
   become_user: "{{ user }}"
+
+- name: Ensure user sudoers configured
+  community.general.sudoers:
+    name: "workstation-sudoers"
+    user: "{{ user }}"
+    commands: "ALL"
 
 - name: Ensure chezmoi setup tasks included
   when: chezmoi_init

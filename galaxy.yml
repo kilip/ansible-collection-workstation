@@ -27,4 +27,14 @@ documentation: https://github.com/kilip/workstation/wiki
 homepage: https://github.com/kilip/workstation
 issues: https://github.com/kilip/workstation/issues
 
-build_ignore: []
+build_ignore:
+  - .github
+  - .taskfiles
+  - .vscode
+  - .molecule
+  - .editorconfig
+  - .envrc
+  - .pre-commit-config.yaml
+  - ansible.cfg
+  - requirements.txt
+  - Taskfile.yml

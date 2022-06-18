@@ -1,10 +1,10 @@
 ---
 - name: Ensure proxy configured
   ansible.builtin.include_tasks: proxy/setup.yml
-  when: ws_proxy_build
+  when: proxy_build
 
 - name: Ensure workstation OS is upgraded
-  ansible.builtin.include_tasks: "dist/setup-{{ ws_os_family }}.yml"
+  ansible.builtin.include_tasks: "dist/setup-{{ os_family }}.yml"
 
 - name: Ensure required packages installed
   ansible.builtin.package:
@@ -22,7 +22,7 @@
       value: 1048576000
     - name: http.sslVerify
       value: false
-  when: ws_proxy_cert_build
+  when: proxy_cert_build
 
 - name: Ensure curl secure options disabled
   ansible.builtin.lineinfile:
@@ -32,7 +32,7 @@
     group: "{{ user }}"
     mode: "0644"
     create: true
-  when: ws_proxy_cert_build
+  when: proxy_cert_build
 
 - name: Ensure remote temp dir exists
   ansible.builtin.file:

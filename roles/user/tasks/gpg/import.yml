@@ -10,23 +10,23 @@
 
     - name: gpg ~> Set import facts
       ansible.builtin.set_fact:
-        ws_gpg_do_import: "{{ ws_gpg.id not in _gpg.stdout }}"
+        gpg_do_import: "{{ gpg.id not in _gpg.stdout }}"
 
     - name: gpg ~> Copy gpg key
       ansible.builtin.copy:
-        src: "{{ ws_gpg.file }}"
-        dest: "/tmp/{{ ws_gpg.id }}.key"
+        src: "{{ gpg.file }}"
+        dest: "/tmp/{{ gpg.id }}.key"
         mode: "0600"
-      when: ws_gpg_do_import
+      when: gpg_do_import
 
     - name: Import gpg keys
       ansible.builtin.command:
-        cmd: gpg --import /tmp/{{ ws_gpg.id }}.key
-      when: ws_gpg_do_import
+        cmd: gpg --import /tmp/{{ gpg.id }}.key
+      when: gpg_do_import
 
     - name: Ensure gpg key file deleted
       ansible.builtin.file:
-        path: "/tmp/{{ ws_gpg.id }}.key"
+        path: "/tmp/{{ gpg.id }}.key"
         state: absent
   become: true
   become_user: "{{ user }}"

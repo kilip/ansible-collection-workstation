@@ -2,10 +2,8 @@
 - name: Ensure apt cache updated
   ansible.builtin.apt:
     update_cache: yes
-    cache_valid_time: 1500
-  changed_when: false
+    cache_valid_time: 3000
 
-- name: Ensure dist upgraded
-  ansible.builtin.apt:
-    upgrade: dist
-  changed_when: false
+# - name: Ensure dist upgraded
+#   ansible.builtin.apt:
+#     upgrade: dist

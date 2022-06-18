@@ -11,7 +11,6 @@ fish: yes
 fish_bin: /usr/bin/fish
 fish_config: "{{ user_home }}/.config/fish/config.fish"
 
-
 omf: false
 omf_theme: ""
 omf_packages: []

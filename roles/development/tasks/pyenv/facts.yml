@@ -1,6 +1,6 @@
 ---
 - name: facts ~> Ensure pyenv os vars loaded
-  ansible.builtin.include_vars: "pyenv/{{ ws_os_family }}.yml"
+  ansible.builtin.include_vars: "pyenv/{{ os_family }}.yml"
 
 - name: facts ~> Ensure pyenv installed
   ansible.builtin.set_fact:

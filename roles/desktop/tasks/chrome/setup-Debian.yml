@@ -4,6 +4,7 @@
     url: https://dl.google.com/linux/linux_signing_key.pub
     keyring: /etc/apt/trusted.gpg.d/google.gpg
     state: present
+    validate_certs: no
 
 - name: chrome ~> Ensure apt repository present and cache updated
   ansible.builtin.apt_repository:

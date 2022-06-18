@@ -3,5 +3,5 @@
   ansible.builtin.include_tasks: import.yml
   loop: "{{ user_gpg_keys }}"
   loop_control:
-    loop_var: ws_gpg
-    label: "{{ ws_gpg.file }}"
+    loop_var: gpg
+    label: "{{ gpg.file }}"

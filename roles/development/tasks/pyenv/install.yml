@@ -3,7 +3,7 @@
   ansible.builtin.get_url:
     url: https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer
     dest: /tmp/pyenv-install
-    validate_certs: "{{ not ws_proxy_cert_build }}"
+    validate_certs: "{{ not proxy_cert_build }}"
 
 - name: pyenv ~> Ensure installed
   ansible.builtin.command:

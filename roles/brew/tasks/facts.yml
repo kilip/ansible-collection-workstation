@@ -1,10 +1,10 @@
 ---
 - name: facts ~> Ensure vars for os family loaded
-  ansible.builtin.include_vars: config-{{ ws_os_family }}.yml
+  ansible.builtin.include_vars: config-{{ os_family }}.yml
 
 - name: facts ~> Ensure package deps installed
   kilip.workstation.add_package:
-    package: "{{ ws_brew_packages }}"
+    package: "{{ brew_deps_packages }}"
 
 - name: facts ~> Check brew install stat
   ansible.builtin.stat:

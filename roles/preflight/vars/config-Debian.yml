@@ -1,1 +1,1 @@
-ws_cert_path: /usr/local/share/ca-certificates
+cert_path: /usr/local/share/ca-certificates

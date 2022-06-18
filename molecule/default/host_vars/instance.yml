@@ -10,6 +10,7 @@ user_gpg_keys:
   - file: gpg/gpg-3C9B6EBE88D163FA.key
   - file: gpg/gpg-40A29F572C8134B1.key
 user_shell: "/usr/bin/fish"
+user_add_sudoers: yes
 
 git_config:
   - name: user.name
@@ -25,8 +26,12 @@ git_config:
   - name: pull.rebase
     value: true
 
-ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
-ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
+git_clone:
+  - repo: git@github.com:kilip/molecule-dotfiles.git
+    dest: "{{ user_home }}/molecule-dotfiles"
+
+proxy: "{{ lookup('env', 'WS_PROXY') }}"
+proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
 
 omf: yes
 omf_theme: bobthefish
@@ -37,11 +42,8 @@ omz_theme: agnoster
 brew_packages:
   - direnv
   - chezmoi
-  - pyenv
-  - phpbrew
-  - composer
 
-chezmoi_repo: https://github.com/kilip/molecule-dotfiles
+chezmoi_repo: git@github.com:kilip/molecule-dotfiles.git
 
 phpbrew: yes
 pyenv: yes

@@ -18,7 +18,8 @@
         cmd: "{{ chezmoi_bin }} init --apply {{ chezmoi_repo }}"
         chdir: "{{ user_home }}"
       environment:
-        GIT_SSL_NO_VERIFY: "{{ 1 if ws_proxy_cert_build else 0 }}"
+        GIT_SSL_NO_VERIFY: "{{ 1 if proxy_cert_build else 0 }}"
+        GIT_SSH_COMMAND: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
       register: stat
       retries: 5
       delay: 3

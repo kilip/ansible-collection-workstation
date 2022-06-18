@@ -4,7 +4,7 @@
 
 - name: facts ~> Ensure package deps installed
   kilip.workstation.add_package:
-    package: "{{ brew_packages }}"
+    package: "{{ brew_deps_packages }}"
 
 - name: facts ~> Check brew install stat
   ansible.builtin.stat:

@@ -1,6 +1,6 @@
 ---
 
-brew_packages:
+brew_deps_packages:
   - build-essential
   - procps
   - curl

@@ -25,8 +25,8 @@ git_config:
   - name: pull.rebase
     value: true
 
-ws_proxy: "{{ lookup('env', 'WS_PROXY') }}"
-ws_proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
+proxy: "{{ lookup('env', 'WS_PROXY') }}"
+proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
 
 omf: yes
 omf_theme: bobthefish
@@ -41,7 +41,7 @@ brew_packages:
   - phpbrew
   - composer
 
-chezmoi_repo: https://github.com/kilip/molecule-dotfiles
+chezmoi_repo: git@github.com:kilip/molecule-dotfiles.git
 
 phpbrew: yes
 pyenv: yes

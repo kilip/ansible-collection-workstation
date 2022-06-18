@@ -4,7 +4,7 @@ build_desktop: yes
 build_development: yes
 build_shell: yes
 
-roles:
+build_groups:
   - name: preflight
     preflight: yes
     post_build: no

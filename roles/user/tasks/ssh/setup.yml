@@ -26,11 +26,3 @@
   loop: "{{ user_ssh_keys }}"
   loop_control:
     label: "{{ item }}.pub"
-
-- name: ssh ~> Ensure ssh key added to agent
-  ansible.builtin.shell:
-    cmd: eval $(ssh-agent -s) && ssh-add {{ user_home }}/.ssh/{{ item | basename }}
-  changed_when: false
-  become: true
-  become_user: "{{ user }}"
-  loop: "{{ user_ssh_keys }}"

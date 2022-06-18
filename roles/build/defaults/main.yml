@@ -1,31 +1,31 @@
 ---
-build_brew: no
-build_desktop: no
-build_development: no
-build_shell: no
+build_brew: yes
+build_desktop: yes
+build_development: yes
+build_shell: yes
 
 roles:
-  - name: kilip.workstation.preflight
+  - name: preflight
     preflight: yes
     post_build: no
     enabled: yes
-  - name: kilip.workstation.brew
+  - name: brew
     preflight: yes
     post_build: yes
     enabled: "{{ build_brew }}"
-  - name: kilip.workstation.user
+  - name: user
     preflight: yes
     post_build: yes
     enabled: "{{ user | length > 0 }}"
-  - name: kilip.workstation.shell
+  - name: shell
     preflight: yes
     post_build: no
     enabled: "{{ build_shell }}"
-  - name: kilip.workstation.development
+  - name: development
     preflight: yes
     post_build: no
     enabled: "{{ build_development }}"
-  - name: kilip.workstation.desktop
+  - name: desktop
     preflight: no
     post_build: no
     enabled: "{{ build_desktop }}"

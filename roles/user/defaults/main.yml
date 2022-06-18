@@ -14,3 +14,4 @@ chezmoi_repo: ""
 
 git_config_path: "{{ user_home }}/.gitconfig"
 git_config: []
+git_clone: []

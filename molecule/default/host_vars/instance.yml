@@ -37,9 +37,6 @@ omz_theme: agnoster
 brew_packages:
   - direnv
   - chezmoi
-  - pyenv
-  - phpbrew
-  - composer
 
 chezmoi_repo: git@github.com:kilip/molecule-dotfiles.git
 

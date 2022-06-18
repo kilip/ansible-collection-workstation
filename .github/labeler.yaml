@@ -1,0 +1,21 @@
+---
+github:
+  - ".github/**/*"
+tests:
+  - "molecule/**/*"
+plugins:
+  - "plugins/**/*"
+role/brew:
+  - "roles/brew/**/*"
+role/build:
+  - "roles/build/**/*"
+role/desktop:
+  - "roles/desktop/**/*"
+role/development:
+  - "roles/development/**/*"
+role/preflight:
+  - "roles/prefligh/**/*"
+role/shell:
+  - "roles/shell/**/*"
+role/user:
+  - "roles/user/**/*"

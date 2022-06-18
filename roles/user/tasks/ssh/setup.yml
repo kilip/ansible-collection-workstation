@@ -20,7 +20,7 @@
   ansible.builtin.copy:
     src: "{{ item }}.pub"
     dest: "{{ user_home }}/.ssh/{{ item | basename }}.pub"
-    mode: "0600"
+    mode: "u=rw,g=rw,o=r"
     owner: "{{ user }}"
     group: "{{ user }}"
   loop: "{{ user_ssh_keys }}"

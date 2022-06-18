@@ -25,6 +25,10 @@ git_config:
   - name: pull.rebase
     value: true
 
+git_clone:
+  - repo: git@github.com:kilip/molecule-dotfiles.git
+    dest: "{{ user_home }}/molecule-dotfiles"
+
 proxy: "{{ lookup('env', 'WS_PROXY') }}"
 proxy_cert: "{{ lookup('env', 'WS_PROXY_CERT') }}"
 

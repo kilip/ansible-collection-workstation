@@ -1,7 +1,19 @@
 ---
-- name: preflight ~> Ensure gpg keys are imported
+- name: Ensure gpg keys are imported
   ansible.builtin.include_tasks: gpg/setup.yml
   when: gpg_import
+
+- name: Ensure git repository cloned
+  when: git_clone | length > 0
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    accept_newhostkey: true
+    ssh_opts: -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+  become_user: "{{ user }}"
+  loop: "{{ git_clone }}"
+  loop_control:
+    label: "{{ item.dest | basename }}"
 
 - name: Ensure chezmoi setup tasks included
   when: chezmoi_init

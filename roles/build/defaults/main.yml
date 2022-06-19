@@ -1,33 +1,26 @@
 ---
 build_brew: yes
 build_desktop: yes
-build_development: yes
+build_dev: yes
 build_shell: yes
 
 build_groups:
   - name: base
-    preflight: no
-    post_build: no
     enabled: yes
   - name: brew
-    preflight: no
     post_build: yes
     enabled: "{{ build_brew }}"
   - name: user
     preflight: yes
     post_build: yes
+    validate: yes
     enabled: "{{ user | length > 0 }}"
   - name: shell
-    preflight: no
     post_build: yes
     enabled: "{{ build_shell }}"
-  - name: development
-    preflight: no
-    post_build: no
-    enabled: "{{ build_development }}"
+  - name: dev
+    enabled: "{{ build_dev }}"
   - name: desktop
-    preflight: no
-    post_build: no
     enabled: "{{ build_desktop }}"
 
 encrypted_dir: 'encrypted'

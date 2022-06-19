@@ -19,4 +19,5 @@
       if test -f $HOME/".local/share/kilip.workstation/config.fish"
         source $HOME/".local/share/kilip.workstation/config.fish"
       end
+    state: "{{ (build_shell and fish) and 'present' or 'absent'  }}"
   notify: chezmoi add fish

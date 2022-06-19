@@ -2,7 +2,7 @@
 - name: Ensure package installed
   ansible.builtin.include_tasks:
     file: "{{ package.name }}/setup.yml"
-  when: package.check
+  when: package.check and build_dev
   loop:
     - name: phpbrew
       check: "{{ phpbrew }}"

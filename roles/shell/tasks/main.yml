@@ -5,7 +5,7 @@
     apply:
       become: true
       become_user: "{{ user }}"
-  when: shell_tasks.check
+  when: shell_tasks.check and build_shell
   loop: "{{ shell_packages }}"
   loop_control:
     loop_var: shell_tasks

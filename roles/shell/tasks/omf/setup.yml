@@ -13,7 +13,7 @@
   when: not _omf.stat.exists
 
 - name: omf ~> Ensure package installed
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: "omf install {{ item }}"
     creates: "{{ omf_target_dir }}/pkg/{{ item }}"
     chdir: "{{ user_home }}"

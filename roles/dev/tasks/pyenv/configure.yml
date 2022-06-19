@@ -1,4 +1,8 @@
 ---
+- name: pyenv ~> Ensure hook state
+  ansible.builtin.set_fact:
+    pyenv_hook_state: "{{ (build_dev and pyenv) and 'present' or 'absent' }}"
+
 - name: pyenv ~> Ensure shell configured
   ansible.builtin.blockinfile:
     dest: "{{ item }}"
@@ -13,6 +17,7 @@
       fi
     create: yes
     mode: "0644"
+    state: "{{ pyenv_hook_state }}"
   loop:
     - "{{ shell_bashrc }}"
     - "{{ shell_bash_profile }}"
@@ -34,3 +39,4 @@
         set -gx fish_user_paths $PYENV_ROOT/bin $fish_user_paths
         pyenv init - | source
       end
+    state: "{{ pyenv_hook_state }}"

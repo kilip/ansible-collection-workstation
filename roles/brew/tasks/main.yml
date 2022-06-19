@@ -5,3 +5,4 @@
 
 - name: Include install package tasks
   ansible.builtin.include_tasks: setup-packages.yml
+  when: build_brew

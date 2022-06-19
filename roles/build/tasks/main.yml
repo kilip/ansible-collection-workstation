@@ -4,43 +4,81 @@
 
 - name: Ensure facts are gathered
   ansible.builtin.include_role:
-    name: "kilip.workstation.{{ role_item.name }}"
+    name: "kilip.workstation.{{ facts.name }}"
     tasks_from: 'facts.yml'
     public: true
-  when: role_item.enabled
+    apply:
+      tags: facts
   loop: "{{ build_groups }}"
   loop_control:
-    loop_var: role_item
-    label: "{{ role_item.name }}"
+    loop_var: facts
+    label: "{{ facts.name }}"
+  tags: facts
 
-- name: Ensure preflight check
+- name: Ensure configuration validated
   ansible.builtin.include_role:
-    name: "kilip.workstation.{{ preflight_item.name }}"
+    name: "kilip.workstation.{{ validate.name }}"
+    tasks_from: 'validate.yml'
+    public: true
+    apply:
+      tags: validate
+  when: "'validate' in validate"
+  loop: "{{ build_groups }}"
+  loop_control:
+    loop_var: validate
+    label: "{{ validate.name }}"
+  tags: validate
+
+- name: Ensure preflight task executed
+  ansible.builtin.include_role:
+    name: "kilip.workstation.{{ preflight.name }}"
     public: true
     tasks_from: preflight
-  when: preflight_item.preflight and preflight_item.enabled
+    apply:
+      tags: preflight
+  when: "'preflight' in preflight"
   loop_control:
-    loop_var: preflight_item
-    label: "{{ preflight_item.name }}"
+    loop_var: preflight
+    label: "{{ preflight.name }}"
   loop: "{{ build_groups }}"
+  tags: preflight
 
 - name: Ensure workstation build
   ansible.builtin.include_role:
-    name: "kilip.workstation.{{ build_item.name }}"
+    name: "kilip.workstation.{{ build.name }}"
     public: true
+    apply:
+      tags: build
   loop_control:
-    loop_var: build_item
-    label: "{{ build_item.name }}"
+    loop_var: build
+    label: "{{ build.name }}"
   loop: "{{ build_groups }}"
-  when: build_item.enabled
+  tags: build
 
 - name: Ensure workstation post-build
   ansible.builtin.include_role:
     name: "kilip.workstation.{{ post.name }}"
     public: true
     tasks_from: post-build.yml
-  when: "'post_build' in post and post.post_build and post.enabled"
+    apply:
+      tags: post-build
+  when: "'post_build' in post"
   loop_control:
     loop_var: post
     label: "{{ post.name }}"
   loop: "{{ build_groups }}"
+  tags: post-build
+
+- name: Ensure build verified
+  ansible.builtin.include_role:
+    name: "kilip.workstation.{{ verify.name }}"
+    tasks_from: 'verify.yml'
+    public: true
+    apply:
+      tags: verify
+  when: "'verify' in verify"
+  loop: "{{ build_groups }}"
+  loop_control:
+    loop_var: verify
+    label: "{{ verify.name }}"
+  tags: validate

@@ -4,30 +4,6 @@
     gpg_import: "{{ user_gpg_keys | length > 0 }}"
     ssh_import: "{{ user_ssh_keys | length > 0 }}"
 
-- name: facts ~> Ensure gpg keys configuration valid
-  ansible.builtin.assert:
-    that:
-      - "'id' in item"
-      - "'file' in item"
-    fail_msg: User gpg Keys item should contains id and file format.
-    quiet: true
-  loop: "{{ user_gpg_keys }}"
-  no_log: true
-
-- name: facts ~> Ensure ssh public key exists
-  ansible.builtin.assert:
-    that:
-      - "{{ lookup('file', item + '.pub' ) | length > 0 }}"
-    fail_msg: User ssh public key file "{{ item }}.pub" should exists
-    quiet: true
-  loop: "{{ user_ssh_keys }}"
-
-- name: facts ~> Ensure user is configured
-  ansible.builtin.assert:
-    that: user | length > 0
-    quiet: true
-    fail_msg: user variable should be configured
-
 - name: facts ~> Ensure chezmoi configured
   ansible.builtin.set_fact:
     chezmoi_init: "{{ chezmoi_repo | length > 0 }}"

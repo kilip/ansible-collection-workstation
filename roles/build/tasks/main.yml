@@ -81,4 +81,4 @@
   loop_control:
     loop_var: verify
     label: "{{ verify.name }}"
-  tags: validate
+  tags: verify

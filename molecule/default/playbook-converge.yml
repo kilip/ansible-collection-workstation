@@ -3,5 +3,12 @@
   hosts: all
   become: true
   gather_facts: true
+  collections:
+    - kilip.workstation
   roles:
-    - kilip.workstation.build
+    - preflight
+    - user
+    - shell
+    - brew
+    - development
+    - desktop

@@ -1,0 +1,11 @@
+---
+- name: facts ~> Ensure chezmoi configured
+  ansible.builtin.set_fact:
+    chezmoi_init: "{{ chezmoi_repo | length > 0 }}"
+    chezmoi_install: "{{ 'chezmoi' not in brew_packages or not build_brew }}"
+    chezmoi_bin: "{{ ('chezmoi' in brew_packages and build_brew) and brew_prefix + '/bin/chezmoi' or user_home + '/bin/chezmoi' }}"
+
+- name: facts ~> Ensure chezmoi installed in brew packages
+  kilip.workstation.add_package:
+    brew: chezmoi
+  when: chezmoi_init

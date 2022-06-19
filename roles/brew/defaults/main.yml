@@ -1,4 +1,6 @@
 ---
+build_brew: yes
+
 brew: true
 brew_home: "/home/linuxbrew"
 brew_prefix: "{{ brew_home }}/.linuxbrew"

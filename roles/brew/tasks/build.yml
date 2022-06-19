@@ -1,0 +1,7 @@
+---
+- name: Include install tasks
+  ansible.builtin.include_tasks: setup.yml
+  when: brew_install
+
+- name: Include install package tasks
+  ansible.builtin.include_tasks: setup-packages.yml

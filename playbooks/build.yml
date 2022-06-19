@@ -1,8 +1,12 @@
 ---
-- name: Build Workstation
+- name: Start Building workstations
   hosts: all
-  become: true
   gather_facts: true
+  collections: kilip.workstation
   roles:
-    - name: kilip.workstation.build
-      public: true
+    - preflight
+    - user
+    - shell
+    - brew
+    - development
+    - desktop

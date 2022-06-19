@@ -1,8 +1,14 @@
 ---
-- name: Ensure packages setup tasks included
-  ansible.builtin.include_tasks: "{{ desktop_item.name }}/setup.yml"
-  when: desktop_item.check
-  loop: "{{ desktop_packages }}"
-  loop_control:
-    loop_var: desktop_item
-    label: "{{ desktop_item.name }}"
+- name: Ensure facts tasks executed
+  ansible.builtin.include_tasks:
+    file: facts.yml
+    apply:
+      tags: facts
+  tags: facts
+
+- name: Ensure build tasks executed
+  ansible.builtin.include_tasks:
+    file: build.yml
+    apply:
+      tags: build
+  tags: build

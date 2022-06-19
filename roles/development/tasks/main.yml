@@ -1,19 +1,14 @@
 ---
-- name: Ensure package installed
+- name: Ensure facts tasks executed
   ansible.builtin.include_tasks:
-    file: "{{ package.name }}/setup.yml"
-  when: package.check
-  loop:
-    - name: phpbrew
-      check: "{{ phpbrew }}"
-    - name: pyenv
-      check: "{{ pyenv }}"
-    - name: vscode
-      check: "{{ vscode }}"
-    - name: virtualbox
-      check: "{{ virtualbox }}"
-    - name: vagrant
-      check: "{{ vagrant }}"
-  loop_control:
-    loop_var: package
-    label: "{{ package.name }}"
+    file: facts.yml
+    apply:
+      tags: facts
+  tags: facts
+
+- name: Ensure build tasks executed
+  ansible.builtin.include_tasks:
+    file: build.yml
+    apply:
+      tags: build
+  tags: build

@@ -1,0 +1,37 @@
+---
+- name: Ensure gpg keys are imported
+  ansible.builtin.include_tasks: gpg/setup.yml
+  when: gpg_import
+
+- name: Ensure git and ssh prepared
+  block:
+    - name: ssh ~> Ensure ssh key added to agent
+      ansible.builtin.shell:
+        cmd: eval $(ssh-agent -s) && ssh-add {{ user_home }}/.ssh/{{ item | basename }}
+      changed_when: false
+      become: true
+      become_user: "{{ user }}"
+      loop: "{{ user_ssh_keys }}"
+
+    - name: Ensure git repository cloned
+      when: git_clone | length > 0
+      ansible.builtin.git:
+        repo: "{{ item.repo }}"
+        dest: "{{ item.dest }}"
+        accept_newhostkey: true
+        ssh_opts: -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+      loop: "{{ git_clone }}"
+      loop_control:
+        label: "{{ item.dest | basename }}"
+
+  become_user: "{{ user }}"
+
+- name: Ensure user sudoers configured
+  community.general.sudoers:
+    name: "workstation-sudoers"
+    user: "{{ user }}"
+    commands: "ALL"
+
+- name: Ensure chezmoi setup tasks included
+  when: chezmoi_init
+  ansible.builtin.include_tasks: chezmoi/setup.yml

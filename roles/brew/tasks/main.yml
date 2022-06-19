@@ -1,7 +1,29 @@
 ---
-- name: Include install tasks
-  ansible.builtin.include_tasks: setup.yml
-  when: brew_install
+- name: Ensure facts tasks executed
+  ansible.builtin.include_tasks:
+    file: facts.yml
+    apply:
+      tags: facts
+  tags: facts
 
-- name: Include install package tasks
-  ansible.builtin.include_tasks: setup-packages.yml
+- name: Ensure build tasks executed
+  ansible.builtin.include_tasks:
+    file: build.yml
+    apply:
+      tags: build
+  tags: build
+
+- name: Ensure post build tasks executed
+  ansible.builtin.include_tasks:
+    file: post-build.yml
+    apply:
+      tags: post-build
+  tags: post-build
+
+- name: Ensure verify tasks executed
+  ansible.builtin.include_tasks:
+    file: verify.yml
+    apply:
+      tags: verify
+  tags: verify
+  when: build_brew

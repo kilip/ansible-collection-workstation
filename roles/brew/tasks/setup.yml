@@ -35,6 +35,5 @@
       retries: 5
       delay: 3
       until: stat.rc == 0
-
   become: true
   become_user: "{{ user }}"

@@ -6,11 +6,11 @@ build_shell: yes
 
 build_groups:
   - name: base
-    preflight: yes
+    preflight: no
     post_build: no
     enabled: yes
   - name: brew
-    preflight: yes
+    preflight: no
     post_build: yes
     enabled: "{{ build_brew }}"
   - name: user
@@ -18,11 +18,11 @@ build_groups:
     post_build: yes
     enabled: "{{ user | length > 0 }}"
   - name: shell
-    preflight: yes
+    preflight: no
     post_build: no
     enabled: "{{ build_shell }}"
   - name: development
-    preflight: yes
+    preflight: no
     post_build: no
     enabled: "{{ build_development }}"
   - name: desktop

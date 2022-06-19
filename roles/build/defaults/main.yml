@@ -5,7 +5,7 @@ build_development: yes
 build_shell: yes
 
 build_groups:
-  - name: preflight
+  - name: base
     preflight: yes
     post_build: no
     enabled: yes

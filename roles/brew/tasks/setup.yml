@@ -23,11 +23,14 @@
         validate_certs: no
 
     - name: Ensure brew installed
-      ansible.builtin.command:
+      ansible.builtin.cmd:
         cmd: /tmp/brew-install.sh
         creates: "{{ brew_bin }}"
       environment:
         NONINTERACTIVE: 1
+        GIT_SSH_COMMAND: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+        HOMEBREW_BREW_GIT_REMOTE: "{{ homebrew_brew_git_remote }}"
+        HOMEBREW_CORE_GIT_REMOTE: "{{ homebrew_core_git_remote }}"
       register: stat
       retries: 5
       delay: 3

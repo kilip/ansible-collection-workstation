@@ -26,6 +26,8 @@ proxy_env:
   - export ftp_proxy="http://{{ proxy }}"
   - export http_proxy="http://{{ proxy }}"
   - export https_proxy="http://{{ proxy }}"
+  - export NO_PROXY="*.itstoni.com"
+  - export no_proxy="*.itstoni.com"
   - export HOMEBREW_CURLRC=1
 
 update_cert_command: "update-ca-certificates"

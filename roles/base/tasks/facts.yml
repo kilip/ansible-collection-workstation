@@ -1,11 +1,8 @@
 ---
-- name: Ensure proxy server
-  ansible.builtin.include_tasks: verify/ensure-proxy.yml
-
-- name: Include "{{ ansible_os_family }}" config
+- name: Ensure "{{ ansible_os_family }}" configured
   ansible.builtin.include_vars: config-{{ ansible_os_family }}.yml
 
-- name: Ensure proxy build fact value
+- name: Ensure proxy fact configured
   ansible.builtin.set_fact:
     proxy_build: "{{ proxy | length > 0 }}"
     proxy_cert_build: "{{ proxy_cert | length > 0 }}"

@@ -1,5 +1,5 @@
 ---
-- name: proxy ~> Ensure proxy configured for apt
+- name: proxy ~> Ensure apt configured
   ansible.builtin.template:
     src: "proxy/apt-99proxy.j2"
     dest: "/etc/apt/apt.conf.d/99proxy"

@@ -13,7 +13,7 @@
 #    mode: "0644"
 #  when: ansible_os_family == 'RedHat'
 
-- name: proxy ~> Ensure update ca-certificates command executed
+- name: proxy ~> Ensure update cert executed
   ansible.builtin.command:
     cmd: "{{ update_cert_command }}"
     creates: "{{ proxy_cert_path }}"

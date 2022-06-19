@@ -13,25 +13,25 @@
       become_user: "{{ user }}"
       loop: "{{ user_ssh_keys }}"
 
-    - name: Ensure git repository cloned
+    - name: Ensure repo cloned
       when: git_clone | length > 0
       ansible.builtin.git:
         repo: "{{ item.repo }}"
         dest: "{{ item.dest }}"
         accept_newhostkey: true
         ssh_opts: -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+        version: "{{ 'branch' in item and item.branch or 'main' }}"
       loop: "{{ git_clone }}"
       loop_control:
         label: "{{ item.dest | basename }}"
-
   become_user: "{{ user }}"
 
-- name: Ensure user sudoers configured
+- name: Ensure sudoers configured
   community.general.sudoers:
     name: "workstation-sudoers"
     user: "{{ user }}"
     commands: "ALL"
 
-- name: Ensure chezmoi setup tasks included
+- name: Ensure chezmoi tasks executed
   when: chezmoi_init
   ansible.builtin.include_tasks: chezmoi/setup.yml

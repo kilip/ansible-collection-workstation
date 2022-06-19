@@ -24,6 +24,21 @@
   ansible.builtin.include_tasks: ssh/setup.yml
   when: ssh_import
 
-- name: preflight ~> Ensure gpg deps packages is installed
-  kilip.workstation.add_package:
-    package: gnupg
+- name: Ensure curl configured
+  ansible.builtin.lineinfile:
+    path: "{{ user_home }}/.curlrc"
+    line: "insecure"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: "0644"
+    create: true
+  when: proxy_cert_build
+
+- name: Ensure remote temp dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_remote_tmp }}"
+    state: directory
+    mode: "0777"
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+  when: ansible_remote_tmp is defined

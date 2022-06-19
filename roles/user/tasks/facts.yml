@@ -1,5 +1,5 @@
 ---
-- name: facts ~> Ensure executed user tasks configured
+- name: facts ~> Ensure tasks configured
   ansible.builtin.set_fact:
     gpg_import: "{{ user_gpg_keys | length > 0 }}"
     ssh_import: "{{ user_ssh_keys | length > 0 }}"
@@ -10,12 +10,16 @@
     chezmoi_install: "{{ 'chezmoi' not in brew_packages or not build_brew }}"
     chezmoi_bin: "{{ ('chezmoi' in brew_packages and build_brew) and brew_prefix + '/bin/chezmoi' or user_home + '/bin/chezmoi' }}"
 
-- name: facts ~> Ensure chezmoi installed in brew packages
+- name: facts ~> Ensure chezmoi brew packages
   kilip.workstation.add_package:
     brew: chezmoi
-  when: chezmoi_init
+  when: not chezmoi_install
 
 - name: facts ~> Ensure user facts configured
   ansible.builtin.set_fact:
     user_configure_shell: "{{ user_shell | length > 0 }}"
     user_configure_git: "{{ git_config | length > 0 }}"
+
+- name: facts ~> Ensure gnupg installed
+  kilip.workstation.add_package:
+    package: gnupg

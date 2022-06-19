@@ -1,5 +1,5 @@
 ---
-- name: pyenv ~> Check current pyenv bin stat
+- name: pyenv ~> Ensure pyenv install stat
   ansible.builtin.stat:
     path: "{{ pyenv_bin }}"
   register: _pyenv_bin

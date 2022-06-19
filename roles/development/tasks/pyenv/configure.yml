@@ -1,32 +1,36 @@
 ---
 - name: pyenv ~> Ensure shell configured
   ansible.builtin.blockinfile:
-    dest: "{{ item.dest }}"
-    marker_begin: "<> pyenv"
-    marker_end: "</> pyenv"
+    dest: "{{ item }}"
+    marker_begin: "pyenv ~>"
+    marker_end:   "pyenv <~"
     block: |
-      export PYENV_ROOT="$HOME/.pyenv"
-      command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-      eval "$(pyenv init -)"
-  notify: "{{ item.notify }}"
+      if type pyenv &>/dev/null
+      then
+        export PYENV_ROOT="$HOME/.pyenv"
+        command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+        eval "$(pyenv init -)"
+      fi
+    create: yes
+    mode: "0644"
   loop:
-    - dest: "{{ bashrc }}"
-      notify: chezmoi add bashrc
-    - dest: "{{ user_home }}/.profile"
-      notify: chezmoi add profile
-    - dest: "{{ zshrc }}"
-      notify: chezmoi add zshrc
-    - dest: "{{ zsh_profile }}"
-      notify: chezmoi add zprofile
+    - "{{ shell_bashrc }}"
+    - "{{ shell_bash_profile }}"
+    - "{{ shell_zshrc }}"
+    - "{{ shell_zprofile }}"
   loop_control:
-    label: "{{ item.dest }}"
+    label: "{{ item | basename }}"
+
 - name: pyenv ~> Ensure fish configured
   ansible.builtin.blockinfile:
-    dest: "{{ fish_config }}"
-    marker_begin: "<> pyenv"
-    marker_end: "</> pyenv"
+    dest: "{{ shell_fish }}"
+    marker_begin: "pyenv ~>"
+    marker_end:   "pyenv <~"
+    create: yes
+    mode: "0644"
     block: |
-      set -gx PYENV_ROOT $HOME/.pyenv
-      set -gx fish_user_paths $PYENV_ROOT/bin $fish_user_paths
-      pyenv init - | source
-  notify: chezmoi add fish
+      if test -d $HOME/".pyenv"
+        set -gx PYENV_ROOT $HOME/.pyenv
+        set -gx fish_user_paths $PYENV_ROOT/bin $fish_user_paths
+        pyenv init - | source
+      end

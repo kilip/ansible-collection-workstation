@@ -6,7 +6,7 @@
     state: present
     validate_certs: false
 
-- name: vagrant ~> Ensure repository source present and apt cache updated
+- name: vagrant ~> Ensure apt source configured
   ansible.builtin.apt_repository:
     repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ os_release }} main"
     filename: "vagrant"

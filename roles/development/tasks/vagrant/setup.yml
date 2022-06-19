@@ -1,5 +1,5 @@
 ---
-- name: vagrant ~> Ensure setup task for {{ os_family }} included
+- name: vagrant ~> Ensure setup task executed
   ansible.builtin.include_tasks: vagrant/setup-{{ os_family }}.yml
 
 - name: vagrant ~> Ensure package installed

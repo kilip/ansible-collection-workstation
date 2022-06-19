@@ -4,6 +4,7 @@ os_family: "{{ ansible_os_family  }}"
 os_dist: "{{ ansible_distribution }}"
 os_major: "{{ ansible_distribution_major_version }}"
 os_release: "{{ ansible_distribution_release | lower }}"
+workstation_shared_dir: "{{ user_home }}/.local/share/kilip.workstation"
 
 proxy: ""
 proxy_cert: ""

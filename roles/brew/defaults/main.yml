@@ -1,9 +1,10 @@
 ---
-brew: true
+
+# brew: true
 brew_home: "/home/linuxbrew"
 brew_prefix: "{{ brew_home }}/.linuxbrew"
-brew_prefix_bin: "{{ brew_prefix }}/.linuxbrew/bin"
-brew_bin: "{{ brew_prefix }}/bin/brew"
+brew_prefix_bin: "{{ brew_prefix }}/bin"
+brew_bin: "{{ brew_prefix_bin }}/brew"
 brew_packages: []
 
 homebrew_brew_git_remote: "https://github.com/Homebrew/brew"

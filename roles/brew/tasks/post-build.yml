@@ -1,8 +1,23 @@
 ---
 - name: Ensure shell configured
-  ansible.builtin.include_tasks:
-    file: shell.yml
-    apply:
-      become: true
-      become_user: "{{ user }}"
-  when: brew
+  ansible.builtin.blockinfile:
+    marker_begin:   brew ~>
+    marker_end:     brew <~
+    dest: "{{ item.dest }}"
+    block: "{{ lookup('template', item.tpl) }}"
+    create: yes
+    mode: "0644"
+    state: "{{ 'present' if build_brew else 'absent' }}"
+  loop:
+    - dest: "{{ shell_bash_profile }}"
+      tpl: "profile.j2"
+    - dest: "{{ shell_bashrc }}"
+      tpl: "profile.j2"
+    - dest: "{{ shell_zprofile }}"
+      tpl: "zprofile.j2"
+    - dest: "{{ shell_zshrc }}"
+      tpl: "zprofile.j2"
+    - dest: "{{ shell_fish }}"
+      tpl: "config.fish.j2"
+  loop_control:
+    label: "{{ item.tpl }}"

@@ -12,6 +12,14 @@
     state: present
     shell: "{{ user_shell }}"
 
+- name: preflight ~> Ensure shared dir exists
+  ansible.builtin.file:
+    path: "{{ workstation_shared_dir }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+    mode: "0755"
+
 - name: preflight ~> Ensure ssh keys imported
   ansible.builtin.include_tasks: ssh/setup.yml
   when: ssh_import

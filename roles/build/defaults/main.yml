@@ -19,7 +19,7 @@ build_groups:
     enabled: "{{ user | length > 0 }}"
   - name: shell
     preflight: no
-    post_build: no
+    post_build: yes
     enabled: "{{ build_shell }}"
   - name: development
     preflight: no

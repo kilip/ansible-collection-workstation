@@ -13,3 +13,15 @@ shell_packages:
     check: "{{ omf }}"
   - name: omz
     check: "{{ omz }}"
+
+shell_bashrc:       "{{ workstation_shared_dir }}/bashrc"
+shell_bash_profile: "{{ workstation_shared_dir }}/bash_profile"
+shell_zshrc:        "{{ workstation_shared_dir }}/zshrc"
+shell_zprofile:     "{{ workstation_shared_dir }}/zprofile"
+shell_fish:         "{{ workstation_shared_dir }}/config.fish"
+
+user_bashrc:        "{{ user_home }}/.bashrc"
+user_bash_profile:  "{{ user_home }}/.profile"
+user_zshrc:         "{{ user_home }}/.zshrc"
+user_zprofile:      "{{ user_home }}/.zprofile"
+user_fish:          "{{ user_home }}/.config/fish/config.fish"

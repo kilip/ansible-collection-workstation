@@ -23,7 +23,7 @@
         validate_certs: no
 
     - name: Ensure brew installed
-      ansible.builtin.cmd:
+      ansible.builtin.command:
         cmd: /tmp/brew-install.sh
         creates: "{{ brew_bin }}"
       environment:

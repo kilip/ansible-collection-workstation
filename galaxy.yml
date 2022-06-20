@@ -1,7 +1,7 @@
 ---
 namespace: kilip
 name: workstation
-version: 1.0.4
+version: 1.0.5
 readme: README.md
 authors:
   - Anthonius Munthi <me@itstoni.com>
@@ -23,10 +23,10 @@ dependencies:
   community.general: ">=3.0.0"
   community.sops: ">=1.2.2"
 
-repository: https://github.com/kilip/workstation
-documentation: https://github.com/kilip/workstation/wiki
-homepage: https://github.com/kilip/workstation
-issues: https://github.com/kilip/workstation/issues
+repository: https://github.com/kilip/ansible-role-workstation
+documentation: https://github.com/kilip/ansible-role-workstation/wiki
+homepage: https://github.com/kilip/ansible-role-workstation
+issues: https://github.com/kilip/ansible-role-workstation/issues
 
 build_ignore:
   - .github

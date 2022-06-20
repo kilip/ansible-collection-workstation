@@ -1,0 +1,41 @@
+---
+- name: Ensure zsh command executed
+  ansible.builtin.command:
+    cmd: zsh --login
+  changed_when: false
+
+- name: Ensure .zshrc stat gathered
+  ansible.builtin.stat:
+    path: "{{ user_zshrc }}"
+  register: _zshrc
+
+- name: Ensure .zprofile stat gathered
+  ansible.builtin.stat:
+    path: "{{ user_zprofile }}"
+  register: _zprofile
+
+- name: Ensure .zshrc configured
+  ansible.builtin.blockinfile:
+    dest: "{{ user_zshrc }}"
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< kilip.workstation"
+    marker_end:   "> kilip.workstation"
+    block: |
+      export KILIP_WORKSTATION_ROOT="$HOME/.local/share/kilip.workstation"
+      [[ -e "$KILIP_WORKSTATION_ROOT/zshrc" ]] && source "$KILIP_WORKSTATION_ROOT/zshrc"
+    state: "{{ (build_shell and zsh) and 'present' or 'absent'  }}"
+  when: _zshrc.stat.exists
+  notify: chezmoi add zshrc
+
+- name: Ensure .zshrc configured
+  ansible.builtin.blockinfile:
+    dest: "{{ user_zshrc }}"
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< kilip.workstation"
+    marker_end:   "> kilip.workstation"
+    block: |
+      export KILIP_WORKSTATION_ROOT="$HOME/.local/share/kilip.workstation"
+      [[ -e "$KILIP_WORKSTATION_ROOT/zshrc" ]] && source "$KILIP_WORKSTATION_ROOT/zprofile"
+    state: "{{ (build_shell and zsh) and 'present' or 'absent'  }}"
+  when: _zprofile.stat.exists
+  notify: chezmoi add zprofile

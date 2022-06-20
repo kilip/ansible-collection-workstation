@@ -1,0 +1,13 @@
+---
+- name: virtualbox ~> Ensure apt key present
+  ansible.builtin.apt_key:
+    url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+    keyring: /etc/apt/trusted.gpg.d/oracle_vbox_2016.gpg
+    state: present
+    validate_certs: false
+
+- name: virtualbox ~> Ensure apt configured
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian {{ os_release }} contrib"
+    filename: "virtualbox"
+    update_cache: yes

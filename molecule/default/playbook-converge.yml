@@ -5,3 +5,9 @@
   gather_facts: true
   roles:
     - kilip.workstation.build
+  pre_tasks:
+    - name: Set env var
+      ansible.builtin.set_fact:
+        homebrew_brew_git_remote: "{{ lookup('env', 'HOMEBREW_BREW_GIT_REMOTE') }}"
+        homebrew_core_git_remote: "{{ lookup('env', 'HOMEBREW_CORE_GIT_REMOTE') }}"
+      when: lookup('env', 'HOMEBREW_BREW_GIT_REMOTE') | length > 0

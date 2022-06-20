@@ -1,0 +1,13 @@
+---
+- name: vagrant ~> Ensure apt key present
+  ansible.builtin.apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    keyring: /etc/apt/trusted.gpg.d/vagrant.gpg
+    state: present
+    validate_certs: false
+
+- name: vagrant ~> Ensure apt source configured
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ os_release }} main"
+    filename: "vagrant"
+    update_cache: yes

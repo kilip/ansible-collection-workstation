@@ -13,4 +13,4 @@
 
 - name: facts ~> Ensure install facts configured
   ansible.builtin.set_fact:
-    brew_install: "{{ not _brew_bin.stat.exists and brew }}"
+    brew_install: "{{ not _brew_bin.stat.exists and build_brew }}"

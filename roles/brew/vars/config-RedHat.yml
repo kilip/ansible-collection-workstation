@@ -1,5 +1,4 @@
 ---
-
 brew_packages:
   - procps-ng
   - curl

@@ -1,0 +1,5 @@
+---
+- name: proxy ~> Ensure yum configured
+  ansible.builtin.lineinfile:
+    line: proxy=http://{{ proxy }}
+    path: /etc/yum.conf

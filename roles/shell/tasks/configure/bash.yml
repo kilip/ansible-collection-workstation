@@ -1,0 +1,41 @@
+---
+- name: Ensure bash command executed
+  ansible.builtin.command:
+    cmd: bash --login
+  changed_when: false
+
+- name: Ensure .bashrc stat gathered
+  ansible.builtin.stat:
+    path: "{{ user_bashrc }}"
+  register: _bashrc
+
+- name: Ensure .profile stat gathered
+  ansible.builtin.stat:
+    path: "{{ user_bash_profile }}"
+  register: _bash_profile
+
+- name: Ensure bash configured
+  ansible.builtin.blockinfile:
+    dest: "{{ user_bashrc }}"
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< kilip.workstation"
+    marker_end:   "> kilip.workstation"
+    block: |
+      export KILIP_WORKSTATION_ROOT="$HOME/.local/share/kilip.workstation"
+      [[ -e "$KILIP_WORKSTATION_ROOT/zshrc" ]] && source "$KILIP_WORKSTATION_ROOT/bashrc"
+    state: "{{ (build_shell and bash) and 'present' or absent   }}"
+  when: _bashrc.stat.exists
+  notify: chezmoi add bashrc
+
+- name: Ensure bash profile configured
+  ansible.builtin.blockinfile:
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< kilip.workstation"
+    marker_end:   "> kilip.workstation"
+    dest: "{{ user_bash_profile }}"
+    block: |
+      export KILIP_WORKSTATION_ROOT="$HOME/.local/share/kilip.workstation"
+      [[ -e "$KILIP_WORKSTATION_ROOT/zshrc" ]] && source "$KILIP_WORKSTATION_ROOT/profile"
+    state: "{{ (build_shell and bash) and 'present' or absent   }}"
+  notify: chezmoi add profile
+  when: _bash_profile.stat.exists

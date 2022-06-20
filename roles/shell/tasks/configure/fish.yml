@@ -1,0 +1,24 @@
+---
+- name: Ensure fish command executed
+  ansible.builtin.command:
+    cmd: fish --login
+  changed_when: false
+
+- name: Ensure fish config stat gathered
+  ansible.builtin.stat:
+    path: "{{ user_fish }}"
+  register: _fish
+
+- name: Ensure fish configured
+  when: _fish.stat.exists
+  ansible.builtin.blockinfile:
+    dest:         "{{ user_fish }}"
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< kilip.workstation"
+    marker_end:   "> kilip.workstation"
+    block: |
+      if test -f $HOME/".local/share/kilip.workstation/config.fish"
+        source $HOME/".local/share/kilip.workstation/config.fish"
+      end
+    state: "{{ (build_shell and fish) and 'present' or 'absent'  }}"
+  notify: chezmoi add fish

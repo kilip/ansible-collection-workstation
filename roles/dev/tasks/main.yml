@@ -1,0 +1,19 @@
+---
+- name: Ensure package installed
+  ansible.builtin.include_tasks:
+    file: "{{ package.name }}/setup.yml"
+  when: package.check and build_dev
+  loop:
+    - name: phpbrew
+      check: "{{ phpbrew }}"
+    - name: pyenv
+      check: "{{ pyenv }}"
+    - name: vscode
+      check: "{{ vscode }}"
+    - name: virtualbox
+      check: "{{ virtualbox }}"
+    - name: vagrant
+      check: "{{ vagrant }}"
+  loop_control:
+    loop_var: package
+    label: "{{ package.name }}"

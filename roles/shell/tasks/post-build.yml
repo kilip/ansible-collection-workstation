@@ -1,0 +1,13 @@
+---
+- name: Ensure shell configured
+  ansible.builtin.include_tasks: "configure/{{ item.name }}.yml"
+  when: item.check
+  loop:
+    - name: bash
+      check: "{{ bash }}"
+    - name: zsh
+      check: "{{ zsh }}"
+    - name: fish
+      check: "{{ fish }}"
+  loop_control:
+    label: "{{ item.name }}"

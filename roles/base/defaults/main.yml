@@ -1,0 +1,34 @@
+---
+
+os_family: "{{ ansible_os_family  }}"
+os_dist: "{{ ansible_distribution }}"
+os_major: "{{ ansible_distribution_major_version }}"
+os_release: "{{ ansible_distribution_release | lower }}"
+workstation_shared_dir: "{{ user_home }}/.local/share/kilip.workstation"
+
+proxy: ""
+proxy_cert: ""
+proxy_auth: false
+proxy_build: false
+proxy_cert_build: false
+packages:
+  - zsh
+proxy_cert_path: ""
+proxy_cert_configure: no
+configure_proxy: false
+configure_proxy_cert: false
+proxy_env:
+  - export ALL_PROXY="http://{{ proxy }}"
+  - export FTP_PROXY="http://{{ proxy }}"
+  - export HTTP_PROXY="http://{{ proxy }}"
+  - export HTTPS_PROXY="http://{{ proxy }}"
+  - export PROXY="http://{{ proxy }}"
+  - export all_proxy="http://{{ proxy }}"
+  - export ftp_proxy="http://{{ proxy }}"
+  - export http_proxy="http://{{ proxy }}"
+  - export https_proxy="http://{{ proxy }}"
+  - export NO_PROXY="*.itstoni.com"
+  - export no_proxy="*.itstoni.com"
+  - export HOMEBREW_CURLRC=1
+
+update_cert_command: "update-ca-certificates"

@@ -1,32 +1,8 @@
 ---
-- name: facts ~> Ensure executed user tasks configured
+- name: facts ~> Ensure tasks configured
   ansible.builtin.set_fact:
     gpg_import: "{{ user_gpg_keys | length > 0 }}"
     ssh_import: "{{ user_ssh_keys | length > 0 }}"
-
-- name: facts ~> Ensure gpg keys configuration valid
-  ansible.builtin.assert:
-    that:
-      - "'id' in item"
-      - "'file' in item"
-    fail_msg: User gpg Keys item should contains id and file format.
-    quiet: true
-  loop: "{{ user_gpg_keys }}"
-  no_log: true
-
-- name: facts ~> Ensure ssh public key exists
-  ansible.builtin.assert:
-    that:
-      - "{{ lookup('file', item + '.pub' ) | length > 0 }}"
-    fail_msg: User ssh public key file "{{ item }}.pub" should exists
-    quiet: true
-  loop: "{{ user_ssh_keys }}"
-
-- name: facts ~> Ensure user is configured
-  ansible.builtin.assert:
-    that: user | length > 0
-    quiet: true
-    fail_msg: user variable should be configured
 
 - name: facts ~> Ensure chezmoi configured
   ansible.builtin.set_fact:
@@ -34,12 +10,16 @@
     chezmoi_install: "{{ 'chezmoi' not in brew_packages or not build_brew }}"
     chezmoi_bin: "{{ ('chezmoi' in brew_packages and build_brew) and brew_prefix + '/bin/chezmoi' or user_home + '/bin/chezmoi' }}"
 
-- name: facts ~> Ensure chezmoi installed in brew packages
+- name: facts ~> Ensure chezmoi brew packages
   kilip.workstation.add_package:
     brew: chezmoi
-  when: chezmoi_init
+  when: not chezmoi_install
 
 - name: facts ~> Ensure user facts configured
   ansible.builtin.set_fact:
     user_configure_shell: "{{ user_shell | length > 0 }}"
     user_configure_git: "{{ git_config | length > 0 }}"
+
+- name: facts ~> Ensure gnupg installed
+  kilip.workstation.add_package:
+    package: gnupg

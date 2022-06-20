@@ -1,0 +1,12 @@
+---
+- name: Ensure package facts loaded
+  ansible.builtin.include_tasks: "{{ package.name }}/facts.yml"
+  when: package.check
+  loop:
+    - name: phpbrew
+      check: "{{ phpbrew }}"
+    - name: pyenv
+      check: "{{ pyenv }}"
+  loop_control:
+    loop_var: package
+    label: "{{ package.name }}"

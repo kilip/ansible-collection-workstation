@@ -1,4 +1,10 @@
 ---
+- name: Install dev tools on RedHat family os
+  ansible.builtin.yum:
+    name: '@Development Tools'
+    state: present
+  when: os_family == 'RedHat'
+
 - name: Ensure brew home exists
   ansible.builtin.file:
     path: "{{ brew_home }}"
@@ -22,10 +28,12 @@
         creates: "{{ brew_bin }}"
       environment:
         NONINTERACTIVE: 1
+        GIT_SSH_COMMAND: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+        HOMEBREW_BREW_GIT_REMOTE: "{{ homebrew_brew_git_remote }}"
+        HOMEBREW_CORE_GIT_REMOTE: "{{ homebrew_core_git_remote }}"
       register: stat
       retries: 5
       delay: 3
       until: stat.rc == 0
-
   become: true
   become_user: "{{ user }}"

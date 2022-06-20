@@ -1,7 +1,7 @@
 ---
 - name: chezmoi ~> Ensure configured
   block:
-    - name: chezmoi ~> Ensure chezmoi installed
+    - name: chezmoi ~> Ensure installed
       when: chezmoi_install
       ansible.builtin.shell:
         cmd: sh -c "$(curl -kfsLS chezmoi.io/get)"
@@ -12,7 +12,7 @@
       delay: 3
       until: 0 == stat.rc
 
-    - name: chezmoi ~> Ensure chezmoi dotfiles repo initialized
+    - name: chezmoi ~> Ensure dotfiles initialized
       ansible.builtin.command:
         creates: "{{ chezmoi_dir }}/.git/HEAD"
         cmd: "{{ chezmoi_bin }} init --force --apply {{ chezmoi_repo }}"

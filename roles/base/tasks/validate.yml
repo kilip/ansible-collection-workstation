@@ -1,0 +1,7 @@
+---
+- name: assert ~> Ensure proxy config
+  ansible.builtin.assert:
+    that: proxy | length > 0
+    quiet: true
+    fail_msg: "proxy variables should be configured when using proxy_cert"
+  when: proxy_cert | length > 0

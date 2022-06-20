@@ -13,8 +13,8 @@ role/desktop:
   - "roles/desktop/**/*"
 role/development:
   - "roles/development/**/*"
-role/preflight:
-  - "roles/prefligh/**/*"
+role/base:
+  - "roles/base/**/*"
 role/shell:
   - "roles/shell/**/*"
 role/user:

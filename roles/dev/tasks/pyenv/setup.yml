@@ -1,0 +1,31 @@
+---
+- name: pyenv ~> Ensure pyenv install stat
+  ansible.builtin.stat:
+    path: "{{ pyenv_bin }}"
+  register: _pyenv_bin
+
+- name: pyenv ~> Ensure pyenv installed
+  ansible.builtin.include_tasks:
+    file: pyenv/install.yml
+    apply:
+      become: true
+      become_user: "{{ user }}"
+  when: pyenv_install and not _pyenv_bin.stat.exists
+
+- name: pyenv ~> Ensure user shell configured
+  ansible.builtin.include_tasks:
+    file: pyenv/configure.yml
+    apply:
+      become: true
+      become_user: "{{ user }}"
+
+# TODO: fix error when using proxy with ssl-bump
+- name: pyenv ~> Ensure aria options configured
+  ansible.builtin.blockinfile:
+    dest: "/etc/environment"
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< pyenv"
+    marker_end:   "> pyenv"
+    block: |
+      export PYTHON_BUILD_ARIA2_OPTS="--check-certificate=false"
+  when: proxy_cert_build

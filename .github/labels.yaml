@@ -27,10 +27,10 @@
   color: "72ccf3"
   description: >-
     Changes made in the role development
-- name: role/preflight
+- name: role/base
   color: "72ccf3"
   description: >-
-    Changes made in the role preflight
+    Changes made in the role base
 - name: role/shell
   color: "72ccf3"
   description: >-

@@ -5,9 +5,10 @@
 
 - name: pyenv ~> Ensure shell configured
   ansible.builtin.blockinfile:
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< pyenv"
+    marker_end:   "> pyenv"
     dest: "{{ item }}"
-    marker_begin: "pyenv ~>"
-    marker_end:   "pyenv <~"
     block: |
       if type pyenv &>/dev/null
       then
@@ -28,9 +29,10 @@
 
 - name: pyenv ~> Ensure fish configured
   ansible.builtin.blockinfile:
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< pyenv"
+    marker_end:   "> pyenv"
     dest: "{{ shell_fish }}"
-    marker_begin: "pyenv ~>"
-    marker_end:   "pyenv <~"
     create: yes
     mode: "0644"
     block: |

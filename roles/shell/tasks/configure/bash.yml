@@ -17,8 +17,9 @@
 - name: Ensure bash configured
   ansible.builtin.blockinfile:
     dest: "{{ user_bashrc }}"
-    marker_begin: "kilip.workstation ~>"
-    marker_end:   "kilip.workstation <~"
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< kilip.workstation"
+    marker_end:   "> kilip.workstation"
     block: |
       export KILIP_WORKSTATION_ROOT="$HOME/.local/share/kilip.workstation"
       [[ -e "$KILIP_WORKSTATION_ROOT/zshrc" ]] && source "$KILIP_WORKSTATION_ROOT/bashrc"
@@ -28,9 +29,10 @@
 
 - name: Ensure bash profile configured
   ansible.builtin.blockinfile:
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< kilip.workstation"
+    marker_end:   "> kilip.workstation"
     dest: "{{ user_bash_profile }}"
-    marker_begin: "kilip.workstation ~>"
-    marker_end:   "kilip.workstation <~"
     block: |
       export KILIP_WORKSTATION_ROOT="$HOME/.local/share/kilip.workstation"
       [[ -e "$KILIP_WORKSTATION_ROOT/zshrc" ]] && source "$KILIP_WORKSTATION_ROOT/profile"

@@ -1,14 +1,14 @@
 ---
-- name: phpbrew ~> Ensure installed
+- name: phpbrew Ensure installed
   block:
-    - name: phpbrew ~> Ensure phpbrew bin dir exists
+    - name: phpbrew Ensure phpbrew bin dir exists
       ansible.builtin.file:
         path: "{{ phpbrew_bin | dirname }}"
         state: directory
         mode: "0755"
       when: phpbrew_install
 
-    - name: phpbrew ~> Ensure phar downloaded
+    - name: phpbrew Ensure phar downloaded
       ansible.builtin.get_url:
         url: https://github.com/phpbrew/phpbrew/releases/download/{{ phpbrew_version }}/phpbrew.phar
         dest: "{{ phpbrew_bin }}"
@@ -17,15 +17,16 @@
         use_proxy: false
       when: phpbrew_install
 
-    - name: phpbrew ~> Ensure initialized
+    - name: phpbrew Ensure initialized
       ansible.builtin.command:
         cmd: "{{ phpbrew_bin }} init"
         creates: "{{ phpbrew_home }}/bashrc"
 
-    - name: phpbrew ~> Ensure init script configured
+    - name: phpbrew Ensure init script configured
       ansible.builtin.blockinfile:
-        marker_begin: "phpbrew ~>"
-        marker_end:   "phpbrew <~"
+        marker:       "{{ shell_block_marker }}"
+        marker_begin: "< phpbrew"
+        marker_end:   "> phpbrew"
         dest: "{{ phpbrew_home }}/init"
         block: "{{ lookup('template', 'phpbrew.init.j2') }}"
         create: yes
@@ -36,21 +37,22 @@
   become_user: "{{ user }}"
 
 
-- name: phpbrew ~> Ensure brew environment configured
+- name: phpbrew Ensure brew environment configured
   block:
-    - name: phpbrew ~> Ensure using system php
+    - name: phpbrew Ensure using system php
       ansible.builtin.command:
         cmd: "{{ brew_bin }} unlink php@8.1"
         removes: "{{ brew_prefix }}/bin/php"
   become_user: "{{ user }}"
   when: not phpbrew_install
 
-- name: phpbrew ~> Ensure shell configured
+- name: phpbrew Ensure shell configured
   block:
-    - name: phpbrew ~> Ensure bash configured
+    - name: phpbrew Ensure bash configured
       ansible.builtin.blockinfile:
-        marker_begin: "phpbrew ~>"
-        marker_end:   "phpbrew <~"
+        marker:       "{{ shell_block_marker }}"
+        marker_begin: "< phpbrew"
+        marker_end:   "> phpbrew"
         dest: "{{ shell_bashrc }}"
         block: |
           [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
@@ -58,11 +60,12 @@
         mode: "0644"
         state: "{{ (build_dev and phpbrew) and 'present' or 'absent' }}"
 
-    - name: phpbrew ~> Ensure zsh configured
+    - name: phpbrew Ensure zsh configured
       when: zsh
       ansible.builtin.blockinfile:
-        marker_begin: "phpbrew ~>"
-        marker_end:   "phpbrew <~"
+        marker:       "{{ shell_block_marker }}"
+        marker_begin: "< phpbrew"
+        marker_end:   "> phpbrew"
         dest: "{{ shell_zshrc }}"
         block: |
           [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
@@ -70,11 +73,12 @@
         mode: "0644"
         state: "{{ (build_dev and phpbrew) and 'present' or 'absent' }}"
 
-    - name: phpbrew ~> Ensure fish configured
+    - name: phpbrew Ensure fish configured
       when: fish
       ansible.builtin.blockinfile:
-        marker_begin: "phpbrew ~>"
-        marker_end:   "phpbrew <~"
+        marker:       "{{ shell_block_marker }}"
+        marker_begin: "< phpbrew"
+        marker_end:   "> phpbrew"
         dest: "{{ shell_fish }}"
         block: |
           if test -f $HOME/".phpbrew/phpbrew.fish"

@@ -6,7 +6,7 @@
     state: present
     validate_certs: false
 
-- name: virtualbox ~> Ensure apt repository present and updated
+- name: virtualbox ~> Ensure apt configured
   ansible.builtin.apt_repository:
     repo: "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian {{ os_release }} contrib"
     filename: "virtualbox"

@@ -14,6 +14,7 @@ shell_packages:
   - name: omz
     check: "{{ omz }}"
 
+shell_block_marker: "###{mark} kilip.workstation block"
 shell_bashrc:       "{{ workstation_shared_dir }}/bashrc"
 shell_bash_profile: "{{ workstation_shared_dir }}/bash_profile"
 shell_zshrc:        "{{ workstation_shared_dir }}/zshrc"

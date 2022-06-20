@@ -6,7 +6,7 @@
     state: present
     validate_certs: false
 
-- name: vscode ~> Ensure repository source present
+- name: vscode ~> Ensure apt configured
   ansible.builtin.apt_repository:
     repo: "deb [arch=amd64] https://packages.microsoft.com/repos/code stable main"
     filename: "vscode"

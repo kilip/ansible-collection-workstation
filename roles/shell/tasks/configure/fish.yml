@@ -13,8 +13,9 @@
   when: _fish.stat.exists
   ansible.builtin.blockinfile:
     dest:         "{{ user_fish }}"
-    marker_begin: "kilip.workstation ~>"
-    marker_end:   "kilip.workstation <~"
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< kilip.workstation"
+    marker_end:   "> kilip.workstation"
     block: |
       if test -f $HOME/".local/share/kilip.workstation/config.fish"
         source $HOME/".local/share/kilip.workstation/config.fish"

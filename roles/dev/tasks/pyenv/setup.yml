@@ -23,8 +23,9 @@
 - name: pyenv ~> Ensure aria options configured
   ansible.builtin.blockinfile:
     dest: "/etc/environment"
-    marker_begin: "<> pyenv"
-    marker_end: "</> pyenv"
+    marker:       "{{ shell_block_marker }}"
+    marker_begin: "< pyenv"
+    marker_end:   "> pyenv"
     block: |
       export PYTHON_BUILD_ARIA2_OPTS="--check-certificate=false"
   when: proxy_cert_build

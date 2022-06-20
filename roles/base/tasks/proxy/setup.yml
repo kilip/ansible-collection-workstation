@@ -26,6 +26,7 @@
 - name: proxy ~> Ensure env configured
   ansible.builtin.blockinfile:
     path: /etc/environment
-    marker_begin: "workstation.proxy.start"
-    marker_end: "workstation.proxy.end"
+    marker: "{{ shell_block_marker }}"
+    marker_begin: "< proxy"
+    marker_end: "> proxy"
     block: "{{ lookup('template', 'proxy/etc-environment.j2') }}"

@@ -21,3 +21,13 @@
   loop: "{{ omf_packages }}"
   become: true
   become_user: "{{ user }}"
+
+- name: omf ~> Ensure theme installed
+  ansible.builtin.command:
+    cmd: "omf install {{ omf_theme }}"
+    creates: "{{ omf_target_dir }}/themes/{{ omf_theme }}"
+    chdir: "{{ user_home }}"
+    executable: /usr/bin/fish
+  when: omf_theme | length > 0
+  become: true
+  become_user: "{{ user }}"
